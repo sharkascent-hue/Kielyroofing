@@ -318,3 +318,12 @@ html.qdrop-open .qdrop{clip-path:inset(0 0 0 0);opacity:1;visibility:visible;tra
   .hero{min-height:auto;padding:110px 0 60px}
   .mnav{padding-top:90px}
 }
+/* phones & tablets: the quote card lives in the drop-down only, not as an extra block under the hero */
+.qperks{list-style:none;padding:0;margin:0 0 18px;display:flex;flex-wrap:wrap;gap:8px}
+.qperks li{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:var(--bg,#f4f2ef);border:1px solid var(--line);font-size:.8rem;font-weight:700}
+.qperks svg{width:15px;height:15px;color:var(--blue);flex:none}
+@media (max-width:1020px){
+  .hero.hvid .hcard{display:none}
+}
+/* the video sits on its own layer so scrolling never repaints it */
+.hero.hvid video.bg{transform:translateZ(0);backface-visibility:hidden}

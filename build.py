@@ -254,7 +254,7 @@ def head(p, title, desc, path, extra_ld='', kw=''):
 <link rel="icon" href="{p}img/icon-192.png"><link rel="apple-touch-icon" href="{p}img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{p}assets/style.css?v=1"><link rel="stylesheet" href="{p}assets/kiely.css?v=1">
+<link rel="stylesheet" href="{p}assets/style.css?v=3"><link rel="stylesheet" href="{p}assets/kiely.css?v=3">
 <script type="application/ld+json">{_j.dumps(ld, ensure_ascii=False)}</script>{extra_ld}'''
 
 def header(p, active):
@@ -365,7 +365,7 @@ def scripts(p):
     return f'''<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-<script src="{p}assets/site.js?v=1" defer></script><script src="{p}assets/tools.js?v=1" defer></script>'''
+<script src="{p}assets/site.js?v=3" defer></script><script src="{p}assets/tools.js?v=3" defer></script>'''
 
 def page(path, active, title, desc, body, intro=False, extra_ld='', kw=''):
     p = '../' * path.count('/')
@@ -424,6 +424,8 @@ SKIP = set(COMP) | {'roof-repairs-collage-600x600.jpg'}
 
 def qdrop(p):
     f = form(p, 'Get a free quote', 'We aim to reply the same day. No callout fee.', compact=True).replace('<form class="formcard compact"', '<form class="formcard compact" id="qdform"')
+    perks = '<ul class="qperks">' + ''.join(f'<li>{I["check"]}{t}</li>' for t in ['No callout fee', 'Fixed price upfront', 'Fully insured', 'Same-day inspections']) + '</ul>'
+    f = f.replace('<div class="fmsg"', perks + '<div class="fmsg"', 1)
     return f'''<div class="qdrop" id="qdrop" aria-hidden="true" data-lenis-prevent><div class="wrap qdgrid">
 <div class="qdside"><span class="eyebrow">Free quotes · no callout fee</span><h3>Tell us about the job.</h3>
 <p>Free, no-obligation inspection and a clear, fixed price upfront. Serving Dublin, Meath &amp; Kildare.</p>
@@ -528,7 +530,7 @@ def cta(p):
 def home(p):
     rc = ''.join(f'<a href="{p}{s["slug"]}/">{I[s["icon"]]}{s["name"]}</a>' for s in ROOF)
     return f'''<section class="hero hvid">
-<video class="bg" poster="{p}video/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="{p}video/hero.webm" type="video/webm"><source src="{p}video/hero.mp4" type="video/mp4"></video>
+<video class="bg" poster="{p}video/hero-poster.jpg" data-poster-m="{p}video/hero-m-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="{p}video/hero-m.mp4" type="video/mp4" media="(max-width:760px)"><source src="{p}video/hero-m.webm" type="video/webm" media="(max-width:760px)"><source src="{p}video/hero.webm" type="video/webm"><source src="{p}video/hero.mp4" type="video/mp4"></video>
 <div class="wrap">
 <div>
 <div class="gbadge">{stars()}<b>5 / 5</b> Excellent reviews rating</div>
