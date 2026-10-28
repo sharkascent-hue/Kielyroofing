@@ -302,3 +302,19 @@ html.qdrop-open .qdrop{clip-path:inset(0 0 0 0);opacity:1;visibility:visible;tra
 .mnav .macc.open .subs{max-height:520px;padding:10px 0 14px 6px}
 .mnav .macc .subs a{padding:9px 0;font-size:1rem;color:rgba(255,255,255,.75);border-left:2px solid rgba(249,109,48,.5);padding-left:14px}
 .mnav button.ml{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:clamp(1.6rem,7vw,2.2rem);padding:12px 0;letter-spacing:-.02em;line-height:1.1}
+.hreset{min-height:44px;padding:10px 6px}
+/* tablets & landscape phones: keep the quote button in the header */
+@media (min-width:601px) and (max-width:1020px){
+  .hdr .qbtn{display:inline-flex;margin-left:auto;padding:11px 18px}
+  .hdr .burger{margin-left:12px}
+}
+/* landscape phones: keep the Call / WhatsApp / Quote bar too */
+@media (max-height:500px) and (pointer:coarse){
+  .mbar{display:grid;grid-template-columns:1fr 1fr 1.3fr;position:fixed;left:0;right:0;bottom:0;z-index:850;background:rgba(19,19,22,.96);backdrop-filter:blur(10px);padding:6px 8px calc(6px + env(safe-area-inset-bottom));gap:8px}
+  .mbar a{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px;border-radius:12px;color:#fff;font-size:.8rem;font-weight:700}
+  .mbar a svg{width:20px;height:20px}.mbar a.q{background:var(--blue)}.mbar a:nth-child(2) svg{color:#25d366}
+  .fab{display:none}body{padding-bottom:64px}
+  .topbar{display:none}.hdr{top:0}
+  .hero{min-height:auto;padding:110px 0 60px}
+  .mnav{padding-top:90px}
+}
