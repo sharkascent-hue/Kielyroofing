@@ -82,7 +82,7 @@ html.intro body{overflow:hidden}
 @keyframes zap{0%{opacity:.5;transform:scale(1.04)}100%{opacity:1;transform:none}}
 @keyframes shake{20%{transform:translate(0,2px)}45%{transform:translate(0,-1px)}70%{transform:translate(0,1px)}}
 @keyframes ring{0%{opacity:.9;transform:scale(.2)}100%{opacity:0;transform:scale(14)}}
-html.intro-out #loader{animation:lout 1.15s cubic-bezier(.76,0,.24,1) forwards}
+html.intro-out #loader{animation:lout .95s cubic-bezier(.76,0,.24,1) forwards}
 @keyframes lout{to{transform:translateY(-104%);visibility:hidden}}
 @media (prefers-reduced-motion:reduce){html.intro #loader{display:none}html.intro body{overflow:auto}}
 

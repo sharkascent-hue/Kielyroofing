@@ -253,8 +253,9 @@ def head(p, title, desc, path, extra_ld='', kw=''):
 <meta property="og:image" content="{SITE}/img/van-front.jpg"><meta property="og:url" content="{canon}"><meta property="og:locale" content="en_IE">
 <link rel="icon" href="{p}img/icon-192.png"><link rel="apple-touch-icon" href="{p}img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{p}assets/style.css?v=4"><link rel="stylesheet" href="{p}assets/kiely.css?v=4">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="{p}assets/style.css?v=5"><link rel="stylesheet" href="{p}assets/kiely.css?v=5">
 <script type="application/ld+json">{_j.dumps(ld, ensure_ascii=False)}</script>{extra_ld}'''
 
 def header(p, active):
@@ -365,7 +366,7 @@ def scripts(p):
     return f'''<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-<script src="{p}assets/site.js?v=4" defer></script><script src="{p}assets/tools.js?v=4" defer></script>'''
+<script src="{p}assets/site.js?v=5" defer></script><script src="{p}assets/tools.js?v=5" defer></script>'''
 
 def page(path, active, title, desc, body, intro=False, extra_ld='', kw=''):
     p = '../' * path.count('/')
@@ -378,10 +379,11 @@ def page(path, active, title, desc, body, intro=False, extra_ld='', kw=''):
 <div class="box"><div class="logo"><img class="off" src="{p}img/logo-white.png" alt=""><img class="on" src="{p}img/logo-white.png" alt=""></div><div class="lt">Roofing &amp; home improvements</div></div>
 <svg class="bolt"><defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter></defs></svg>
 <div class="flash"></div></div>'''
+    intro_js = ('<script>' + open(os.path.join(ROOT, 'assets', 'intro.js'), encoding='utf-8').read() + '</script>') if intro else ''
     out = f'''{h}
 </head>
 <body>
-{loader}
+{loader}{intro_js}
 {header(p, active)}
 <main>
 {body(p)}
