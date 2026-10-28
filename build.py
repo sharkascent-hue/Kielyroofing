@@ -269,11 +269,11 @@ def header(p, active):
 <a class="brand" href="{p}" aria-label="Kiely Roofing & Construction home"><img src="{p}img/logo-white.png" alt="Kiely Roofing & Construction" width="612" height="352"></a>
 <nav class="nav" aria-label="Main">
 <a href="{p}"{on('home')}>Home</a>
+<a href="{p}about-us/"{on('about')}>About</a>
 <div class="dd"><a href="{p}roof-repairs/"{ron}>Roofing {I['chev']}</a><div class="menu">{roof}<a href="{p}roof-health-check/"><i>{I['gauge']}</i>Roof Health Check</a></div></div>
 <div class="dd"><a href="{p}house-renovations/"{hon}>Home Improvements {I['chev']}</a><div class="menu">{home}</div></div>
 <a href="{p}gallery/"{on('gallery')}>Gallery</a>
 <a href="{p}reviews/"{on('reviews')}>Reviews</a>
-<a href="{p}about-us/"{on('about')}>About</a>
 <a href="{p}contact-us/"{on('contact')}>Contact</a>
 </nav>
 <button class="btn btn-blue qbtn" type="button" data-qdrop aria-expanded="false" aria-controls="qdrop">Get a free quote {I['chev']}</button>
@@ -281,12 +281,12 @@ def header(p, active):
 </div>{qdrop(p)}</header>
 <nav class="mnav" aria-label="Mobile">
 <a class="ml" href="{p}">Home <small>01</small></a>
-<a class="ml" href="{p}roof-repairs/">Roofing <small>02</small></a><div class="subs">{msubs(ROOF)}<a href="{p}roof-health-check/">Roof Health Check</a></div>
-<a class="ml" href="{p}house-renovations/">Home Improvements <small>03</small></a><div class="subs">{msubs(HOME)}</div>
-<a class="ml" href="{p}gallery/">Gallery <small>04</small></a>
-<a class="ml" href="{p}reviews/">Reviews <small>05</small></a>
-<a class="ml" href="{p}about-us/">About <small>06</small></a>
-<a class="ml" href="{p}contact-us/">Contact <small>07</small></a>
+<a class="ml" href="{p}about-us/">About Us <small>02</small></a>
+<div class="macc"><button class="ml mtog" type="button" aria-expanded="false">Roofing <i>{I['right']}</i></button><div class="subs">{msubs(ROOF)}<a href="{p}roof-health-check/">Roof Health Check</a></div></div>
+<div class="macc"><button class="ml mtog" type="button" aria-expanded="false">Home Improvements <i>{I['right']}</i></button><div class="subs">{msubs(HOME)}</div></div>
+<a class="ml" href="{p}gallery/">Gallery <small>03</small></a>
+<a class="ml" href="{p}reviews/">Reviews <small>04</small></a>
+<a class="ml" href="{p}contact-us/">Contact <small>05</small></a>
 <a class="btn btn-blue" href="#quote" data-qdrop>Get a free quote</a>
 <a class="btn btn-ghost" href="{TEL}" style="margin-top:12px">{I['phone']} Call {PHONE}</a>
 <div class="mfoot">Longwood, Co. Meath · Mon–Sun 7am–10pm</div>

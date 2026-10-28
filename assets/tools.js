@@ -10,6 +10,13 @@
   const tb = () => html.classList.toggle('scrolled-past', scrollY > 40);
   addEventListener('scroll', tb, { passive: true }); tb();
 
+  /* mobile menu: Roofing / Home Improvements open as drop-downs */
+  $$('.mtog').forEach(b => b.addEventListener('click', () => {
+    const acc = b.closest('.macc'), open = !acc.classList.contains('open');
+    $$('.macc').forEach(x => { x.classList.remove('open'); $('.mtog', x).setAttribute('aria-expanded', 'false'); });
+    acc.classList.toggle('open', open); b.setAttribute('aria-expanded', String(open));
+  }));
+
   /* ---------- drop-down quote panel under the header (like vantageroofing.ie) ---------- */
   const qd = $('#qdrop');
   if (qd) {

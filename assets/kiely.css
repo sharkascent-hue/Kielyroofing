@@ -291,3 +291,14 @@ html.qdrop-open .qdrop{clip-path:inset(0 0 0 0);opacity:1;visibility:visible;tra
 @media (max-width:1020px){.qdrop .formcard{order:-1}.qdside p{display:none}.qdside{display:grid;gap:0}}
 .hdr .wrap.qdgrid{display:grid;align-items:start}
 .hdr .qdrop .btn{display:inline-flex}.hdr .qdrop form .btn{display:flex;width:100%}
+/* mobile menu: clear of the top bar + header, tidy accordions */
+.mnav{padding-top:150px}
+@media (max-width:600px){.mnav{padding-top:130px}}
+.mnav .ml{width:100%;background:none;border:0;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;cursor:pointer;color:#fff;font-family:var(--head)}
+.mnav .mtog i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);color:var(--blue-light);transition:transform .3s,background .3s}
+.mnav .mtog i svg{width:18px;height:18px}
+.mnav .macc.open .mtog i{transform:rotate(90deg);background:var(--blue);color:#fff}
+.mnav .macc .subs{display:grid;grid-template-columns:1fr;gap:2px;max-height:0;overflow:hidden;padding:0 0 0 6px;transition:max-height .4s ease,padding .4s ease}
+.mnav .macc.open .subs{max-height:520px;padding:10px 0 14px 6px}
+.mnav .macc .subs a{padding:9px 0;font-size:1rem;color:rgba(255,255,255,.75);border-left:2px solid rgba(249,109,48,.5);padding-left:14px}
+.mnav button.ml{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:clamp(1.6rem,7vw,2.2rem);padding:12px 0;letter-spacing:-.02em;line-height:1.1}
