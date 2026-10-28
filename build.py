@@ -4,7 +4,7 @@ Edit the content below, then run:  python3 build.py   (writes the .html files ne
 import os
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SITE = 'https://www.kielyroofing.ie'
+SITE = 'https://kielyconstruction.ie'
 PHONE, TEL, EMAIL = '087 359 2163', 'tel:+353873592163', 'info@kielyroofing.ie'
 WAURL = 'https://wa.me/353873592163'
 
