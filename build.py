@@ -254,7 +254,7 @@ def head(p, title, desc, path, extra_ld='', kw=''):
 <link rel="icon" href="{p}img/icon-192.png"><link rel="apple-touch-icon" href="{p}img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{p}assets/style.css?v=3"><link rel="stylesheet" href="{p}assets/kiely.css?v=3">
+<link rel="stylesheet" href="{p}assets/style.css?v=4"><link rel="stylesheet" href="{p}assets/kiely.css?v=4">
 <script type="application/ld+json">{_j.dumps(ld, ensure_ascii=False)}</script>{extra_ld}'''
 
 def header(p, active):
@@ -365,7 +365,7 @@ def scripts(p):
     return f'''<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-<script src="{p}assets/site.js?v=3" defer></script><script src="{p}assets/tools.js?v=3" defer></script>'''
+<script src="{p}assets/site.js?v=4" defer></script><script src="{p}assets/tools.js?v=4" defer></script>'''
 
 def page(path, active, title, desc, body, intro=False, extra_ld='', kw=''):
     p = '../' * path.count('/')

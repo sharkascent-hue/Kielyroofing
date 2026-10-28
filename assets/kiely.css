@@ -327,3 +327,18 @@ html.qdrop-open .qdrop{clip-path:inset(0 0 0 0);opacity:1;visibility:visible;tra
 }
 /* the video sits on its own layer so scrolling never repaints it */
 .hero.hvid video.bg{transform:translateZ(0);backface-visibility:hidden}
+
+/* ---------- smoothness ---------- */
+/* menu and quote panel slide/fade on the GPU instead of animating clip-path */
+.mnav{clip-path:none;opacity:0;transform:translateY(-14px);transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s .45s}
+html.menu-open .mnav{clip-path:none;opacity:1;transform:none;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s}
+.qdrop{clip-path:none!important;transform:translateY(-18px);transition:opacity .3s ease,transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s .45s}
+html.qdrop-open .qdrop{transform:none;transition:opacity .3s ease,transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s}
+/* phones: frosted-glass blur over moving video/scroll is the main cause of scroll stutter on iPhone */
+@media (hover:none){
+  *,*::before,*::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  .hdr.solid{background:rgba(19,19,22,.97)}
+  canvas.rain{display:none}
+  #loader canvas.rain{display:block}
+}
+.marquee .track{will-change:transform}

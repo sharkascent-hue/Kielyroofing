@@ -27,6 +27,7 @@
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const rand = (a, b) => a + Math.random() * (b - a);
 
+  if (html.classList.contains('intro')) $$('.hero video.bg').forEach(v => v.pause());
   /* phones get the portrait version of the hero video */
   $$('video[data-poster-m]').forEach(v => { if (innerWidth <= 760) v.poster = v.dataset.posterM; });
 
@@ -153,7 +154,7 @@
     const cv = document.createElement('canvas'); cv.className = 'rain'; cv.setAttribute('aria-hidden', 'true');
     host.insertBefore(cv, host.firstElementChild ? host.firstElementChild.nextSibling : null);
     const ctx = cv.getContext('2d'); let w, h, drops = [], vis = true, raf;
-    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = 1;
     const size = () => { w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const n = Math.round(w * h / 10000 * (o.density || 1)); drops = Array.from({ length: n }, () => ({ x: rand(0, w), y: rand(0, h), l: rand(10, 24), v: rand(9, 16) * (o.speed || 1), a: rand(.08, .28) * (o.alpha || 1) })); };
     size(); let lw = innerWidth; addEventListener('resize', () => { if (innerWidth !== lw) { lw = innerWidth; size(); } }); // ignore the phone toolbar showing/hiding
@@ -171,7 +172,7 @@
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }
-  $$('[data-rain]').forEach(el => rainOn(el));
+  if (!touch) $$('[data-rain]').forEach(el => rainOn(el));
 
   /* ---------- intro: lightning strikes the logo, then the page lifts up ---------- */
   const loader = $('#loader');
@@ -194,7 +195,7 @@
   function runIntro() {
     try { sessionStorage.setItem('kiely_intro', '1'); } catch (e) {}
     if (!loader || !html.classList.contains('intro') || reduce) { finishIntro(); return; }
-    stopIntroRain = rainOn(loader, { always: true, density: 5, speed: 1.5, alpha: 1.5 });
+    stopIntroRain = rainOn(loader, { always: true, density: touch ? 1.6 : 3, speed: 1.5, alpha: 1.6 });
     const svg = $('svg.bolt', loader), flash = $('.flash', loader), logo = $('.logo', loader);
     const W = innerWidth, H = innerHeight;
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
@@ -206,7 +207,7 @@
     const addBolt = (pts, wd, cls) => {
       const d = toD(pts);
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', cls || '');
-      g.innerHTML = `<path d="${d}" stroke="rgba(255,140,70,.6)" stroke-width="${wd * 7}" filter="url(#glow)"/><path d="${d}" stroke="#ffe4d2" stroke-width="${wd * 2.2}"/><path d="${d}" stroke="#fff" stroke-width="${wd}"/>`;
+      g.innerHTML = `<path d="${d}" stroke="rgba(255,140,70,.28)" stroke-width="${wd * 9}"/><path d="${d}" stroke="rgba(255,150,90,.5)" stroke-width="${wd * 4.5}"/><path d="${d}" stroke="#ffe4d2" stroke-width="${wd * 2.2}"/><path d="${d}" stroke="#fff" stroke-width="${wd}"/>`;
       svg.appendChild(g);
       $$('path', g).forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.getBoundingClientRect(); p.style.transition = 'stroke-dashoffset .26s cubic-bezier(.3,.6,.4,1)'; p.style.strokeDashoffset = 0; });
       return g;
@@ -286,7 +287,7 @@
     const lead = $('.lead', hero); if (lead) tl.from(lead, { opacity: 0, y: 20, duration: 0.9, clearProps: 'all' }, 0.45);
     const btns = $$('.btn-row .btn', hero); if (btns.length) tl.from(btns, { opacity: 0, y: 16, duration: 0.7, stagger: 0.1, clearProps: 'all' }, 0.6);
     const trust = $('.trust', hero); if (trust) tl.from(trust, { opacity: 0, y: 14, duration: 0.8, clearProps: 'all' }, 0.85);
-    const vc = $('.vcard', hero); if (vc) tl.from(vc, { clipPath: 'inset(45% 0 45% 0 round 28px)', scale: 0.97, duration: 1.2, ease: 'power4.inOut', clearProps: 'all' }, 0.15);
+    const vc = $('.vcard', hero); if (vc) tl.from(vc, { opacity: 0, y: 30, scale: 0.96, duration: 1.1, ease: 'power3.out', clearProps: 'all' }, 0.15);
     const fr = $('.vwrap .frame', hero); if (fr) tl.from(fr, { opacity: 0, scale: 1.05, duration: 1, clearProps: 'all' }, 0.9);
     const pill = $('.vwrap .pill', hero); if (pill) tl.from(pill, { opacity: 0, y: 20, scale: 0.92, duration: 0.7, ease: 'back.out(1.6)', clearProps: 'all' }, 1.2);
     const tag = $('.vwrap .tag', hero); if (tag) tl.from(tag, { opacity: 0, x: -14, duration: 0.6, clearProps: 'all' }, 1.1);
@@ -319,8 +320,8 @@
     $$('[data-clip]').forEach(el => {
       const img = $('img', el);
       const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 85%' } });
-      tl.from(el, { clipPath: 'inset(0 0 100% 0 round 24px)', duration: 1.2, ease: 'power4.inOut', clearProps: 'clipPath' }, 0);
-      if (img) tl.from(img, { scale: 1.2, duration: 1.6, ease: 'power3.out', clearProps: 'transform' }, 0);
+      tl.from(el, { y: 50, opacity: 0, duration: 1.1, ease: 'power3.out', clearProps: 'transform,opacity' }, 0);
+      if (img) tl.from(img, { scale: 1.12, duration: 1.6, ease: 'power3.out', clearProps: 'transform' }, 0);
     });
     $$('.weather .big').forEach(el => gsap.to(el, { xPercent: -14, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }));
     $$('[data-count]').forEach(el => { const n = +el.dataset.count; const o = { v: 0 }; gsap.to(o, { v: n, duration: 1.6, ease: 'power2.out', onUpdate: () => el.textContent = Math.round(o.v), scrollTrigger: { trigger: el, start: 'top 90%' } }); });
