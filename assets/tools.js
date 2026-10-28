@@ -10,6 +10,26 @@
   const tb = () => html.classList.toggle('scrolled-past', scrollY > 40);
   addEventListener('scroll', tb, { passive: true }); tb();
 
+  /* ---------- drop-down quote panel under the header (like vantageroofing.ie) ---------- */
+  const qd = $('#qdrop');
+  if (qd) {
+    const setQ = open => {
+      html.classList.toggle('qdrop-open', open); qd.setAttribute('aria-hidden', String(!open));
+      $$('.qbtn').forEach(b => b.setAttribute('aria-expanded', String(open)));
+      if (open && matchMedia('(pointer:fine)').matches) setTimeout(() => { const f = $('input:not(.hp)', qd); if (f) f.focus({ preventScroll: true }); }, 380);
+    };
+    $$('[data-qdrop]').forEach(b => b.addEventListener('click', e => {
+      e.preventDefault(); html.classList.remove('menu-open');
+      const sel = $('select[name=service]', qd); if (sel && b.dataset.svc) sel.value = b.dataset.svc;
+      setQ(b.classList.contains('qbtn') ? !html.classList.contains('qdrop-open') : true);
+    }));
+    $$('[data-qclose]', qd).forEach(b => b.addEventListener('click', () => setQ(false)));
+    $$('[data-wizard]', qd).forEach(b => b.addEventListener('click', () => setQ(false)));
+    addEventListener('keydown', e => { if (e.key === 'Escape') setQ(false); });
+    document.addEventListener('click', e => { if (html.classList.contains('qdrop-open') && !e.target.closest('.hdr, [data-qdrop], .wiz')) setQ(false); });
+    if (location.hash === '#quote') setQ(true);
+  }
+
   /* ---------- live opening hours (Mon–Sun 7am–10pm, Irish time) ---------- */
   function openState() {
     const parts = new Intl.DateTimeFormat('en-IE', { timeZone: 'Europe/Dublin', hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date());

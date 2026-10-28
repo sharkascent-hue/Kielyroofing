@@ -230,12 +230,12 @@ def link(p, name):
     s = BYNAME.get(name)
     return f'<a href="{p}{s["slug"]}/">{name}</a>' if s else name
 
-def head(p, title, desc, path, extra_ld=''):
+def head(p, title, desc, path, extra_ld='', kw=''):
     canon = SITE + '/' + path.rstrip('/')
     ld = {"@context": "https://schema.org", "@type": "RoofingContractor", "name": "Kiely Roofing & Construction", "url": SITE + "/",
-          "telephone": "+353873592163", "email": EMAIL, "image": SITE + "/img/van-kiely-roofing-construction-2.jpg", "logo": SITE + "/img/logo.png",
+          "telephone": "+353873592163", "email": EMAIL, "image": SITE + "/img/van-front.jpg", "logo": SITE + "/img/logo.png",
           "address": {"@type": "PostalAddress", "addressLocality": "Longwood", "addressRegion": "Co. Meath", "addressCountry": "IE"},
-          "areaServed": ["County Meath", "County Kildare", "County Dublin"], "openingHours": "Mo-Su 07:00-22:00", "priceRange": "Free quotes",
+          "areaServed": [{"@type": "City", "name": "Dublin"}, {"@type": "AdministrativeArea", "name": "County Dublin"}, {"@type": "AdministrativeArea", "name": "County Meath"}, {"@type": "AdministrativeArea", "name": "County Kildare"}] + [{"@type": "Place", "name": t} for t in ["Lucan", "Blanchardstown", "Castleknock", "Swords", "Clondalkin", "Tallaght", "Navan", "Trim", "Ashbourne", "Maynooth", "Celbridge", "Naas"]], "knowsAbout": ["Roof repairs", "Roof replacement", "Flat roofing", "Chimney repairs", "Guttering", "Dry verge", "Attic conversions", "House extensions"], "openingHours": "Mo-Su 07:00-22:00", "priceRange": "Free quotes",
           "aggregateRating": {"@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": str(len(ALL_REVIEWS))}}
     import json as _j
     return f'''<!doctype html>
@@ -245,10 +245,12 @@ def head(p, title, desc, path, extra_ld=''):
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<meta name="keywords" content="{(kw + " Dublin, " + kw + " Meath, " + kw + " Kildare, ") if kw else ""}roofers Dublin, roofing contractors Dublin, roof repairs Dublin, roof replacement Dublin, flat roofing Dublin, chimney repairs Dublin, guttering Dublin, roofers Meath, roofers Kildare, Kiely Roofing">
+<meta name="geo.region" content="IE-D"><meta name="geo.placename" content="Dublin, Meath, Kildare">
 <link rel="canonical" href="{canon}">
 <meta name="theme-color" content="#131316">
 <meta property="og:type" content="website"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
-<meta property="og:image" content="{SITE}/img/van-kiely-roofing-construction-2.jpg"><meta property="og:url" content="{canon}"><meta property="og:locale" content="en_IE">
+<meta property="og:image" content="{SITE}/img/van-front.jpg"><meta property="og:url" content="{canon}"><meta property="og:locale" content="en_IE">
 <link rel="icon" href="{p}img/icon-192.png"><link rel="apple-touch-icon" href="{p}img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -274,9 +276,9 @@ def header(p, active):
 <a href="{p}about-us/"{on('about')}>About</a>
 <a href="{p}contact-us/"{on('contact')}>Contact</a>
 </nav>
-<a class="btn btn-blue" href="#quote-wizard" data-wizard>Free quote</a>
+<button class="btn btn-blue qbtn" type="button" data-qdrop aria-expanded="false" aria-controls="qdrop">Get a free quote {I['chev']}</button>
 <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
-</div></header>
+</div>{qdrop(p)}</header>
 <nav class="mnav" aria-label="Mobile">
 <a class="ml" href="{p}">Home <small>01</small></a>
 <a class="ml" href="{p}roof-repairs/">Roofing <small>02</small></a><div class="subs">{msubs(ROOF)}<a href="{p}roof-health-check/">Roof Health Check</a></div>
@@ -285,7 +287,7 @@ def header(p, active):
 <a class="ml" href="{p}reviews/">Reviews <small>05</small></a>
 <a class="ml" href="{p}about-us/">About <small>06</small></a>
 <a class="ml" href="{p}contact-us/">Contact <small>07</small></a>
-<a class="btn btn-blue" href="#quote-wizard" data-wizard>Get a free quote</a>
+<a class="btn btn-blue" href="#quote" data-qdrop>Get a free quote</a>
 <a class="btn btn-ghost" href="{TEL}" style="margin-top:12px">{I['phone']} Call {PHONE}</a>
 <div class="mfoot">Longwood, Co. Meath · Mon–Sun 7am–10pm</div>
 </nav>'''
@@ -342,7 +344,7 @@ def footer(p):
 <footer class="ftr"><div class="wrap">
 <div class="cols">
 <div><img class="fl" src="{p}img/logo-white.png" alt="Kiely Roofing & Construction" width="612" height="352" loading="lazy">
-<p>Roofing and home improvements across Meath, Kildare &amp; Dublin. Based in Longwood, Co. Meath. Free quotes and no callout fee.</p>
+<p>Roofers serving Dublin, Meath &amp; Kildare. Roof repairs, new roofs and home improvements. Based in Longwood, Co. Meath. Free quotes and no callout fee.</p>
 <span class="h247">{I['clock'].replace('<svg', '<svg width="14" height="14"')} <span data-open>MON–SUN 7AM–10PM</span></span></div>
 <div><h4>Roofing Services</h4><ul>{lst(ROOF)}<li><a href="{p}roof-health-check/">Roof Health Check</a></li></ul></div>
 <div><h4>Home Improvements</h4><ul>{lst(HOME)}</ul></div>
@@ -351,13 +353,13 @@ def footer(p):
 <li>{I['mail']}<a href="mailto:{EMAIL}" data-cfg="email">{EMAIL}</a></li>
 <li>{I['pin']}<span>Longwood, Co. Meath<br>Serving Meath, Kildare &amp; Dublin</span></li>
 <li>{I['clock']}<span>Mon–Sun: 7am–10pm</span></li></ul>
-<ul style="margin-top:18px"><li><a href="{p}about-us/">About Us</a></li><li><a href="{p}gallery/">Gallery</a></li><li><a href="{p}reviews/">Reviews</a></li><li><a href="{p}contact-us/">Contact Us</a></li></ul></div>
+<ul style="margin-top:18px"><li><a href="{p}roofers-dublin/">Roofers Dublin</a></li><li><a href="{p}about-us/">About Us</a></li><li><a href="{p}gallery/">Gallery</a></li><li><a href="{p}reviews/">Reviews</a></li><li><a href="{p}contact-us/">Contact Us</a></li></ul></div>
 </div>
 <div class="base"><span>Copyright © <span data-cfg="year">2026</span> Kiely Roofing &amp; Construction. All Rights Reserved.</span>
 <nav><a href="{p}privacy-policy/">Privacy Policy</a></nav></div>
 </div></footer>
 <div class="fab"><a class="wa" href="{WAURL}" data-href="whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp us">{WA}</a></div>
-<div class="mbar"><a href="{TEL}">{I['phone']}<span>Call</span></a><a href="{WAURL}" target="_blank" rel="noopener">{WA_ICON}<span>WhatsApp</span></a><a href="#quote-wizard" data-wizard class="q">{I['quote']}<span>Free quote</span></a></div>'''
+<div class="mbar"><a href="{TEL}">{I['phone']}<span>Call</span></a><a href="{WAURL}" target="_blank" rel="noopener">{WA_ICON}<span>WhatsApp</span></a><a href="#quote" data-qdrop class="q">{I['quote']}<span>Free quote</span></a></div>'''
 
 def scripts(p):
     return f'''<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -365,9 +367,9 @@ def scripts(p):
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
 <script src="{p}assets/site.js?v=1" defer></script><script src="{p}assets/tools.js?v=1" defer></script>'''
 
-def page(path, active, title, desc, body, intro=False, extra_ld=''):
+def page(path, active, title, desc, body, intro=False, extra_ld='', kw=''):
     p = '../' * path.count('/')
-    h = head(p, title, desc, path, extra_ld)
+    h = head(p, title, desc, path, extra_ld, kw)
     loader = ''
     if intro:
         h += '\n<script>try{if(!sessionStorage.getItem("kiely_intro")||/[?&]intro/.test(location.search))document.documentElement.classList.add("intro")}catch(e){document.documentElement.classList.add("intro")}</script>'
@@ -400,6 +402,37 @@ def quote_drawer(p):
     f = form(p).replace('<form class="formcard"', '<form class="formcard" id="quote"').replace('<h3>', f'<button class="x" type="button" data-close aria-label="Close">{I["x"]}</button><h3>', 1)
     return f'<div class="qd" id="qd" role="dialog" aria-modal="true" aria-label="Request a quote"><div class="scrim" data-close></div>{f}</div>'
 
+# ---------- image helpers ----------
+from PIL import Image as _Img
+_DIM = {}
+def dims(f):
+    if f not in _DIM: _DIM[f] = _Img.open(os.path.join(ROOT, 'img', f)).size
+    return _DIM[f]
+def pic(p, f, alt, chip='', cls=''):
+    """A photo shown whole: the box takes the photo's own shape, so nothing is cut off."""
+    w, h = dims(f)
+    return f'<div class="ph fit {cls}" style="aspect-ratio:{w}/{h}" data-clip><img src="{p}img/{f}" alt="{alt}" width="{w}" height="{h}" loading="lazy">{chip}</div>'
+# his side-by-side before/after photos, split into proper slider pairs (True = labels already on the photo)
+COMP = {'roof-repair-before-after.jpg': ('ba-roof-repair-before.jpg', 'ba-roof-repair-after.jpg', False),
+        'flat-roof-before-after.jpg': ('ba-flat-roof-before.jpg', 'ba-flat-roof-after.jpg', False),
+        'dry-verge-replacement.jpg': ('ba-dry-verge-before.jpg', 'ba-dry-verge-after.jpg', False),
+        'house-rennovation-before-after.jpg': ('ba-house-rennovation-before.jpg', 'ba-house-rennovation-after.jpg', False),
+        'attic-converstion-before-after.jpg': ('ba-attic-converstion-before.jpg', 'ba-attic-converstion-after.jpg', False),
+        'interior-exterior-painting-2.jpg': ('ba-interior-exterior-painting-2-before.jpg', 'ba-interior-exterior-painting-2-after.jpg', False),
+        'plastering-before-after.jpg': ('ba-plastering-before.jpg', 'ba-plastering-after.jpg', False)}
+SKIP = set(COMP) | {'roof-repairs-collage-600x600.jpg'}
+
+def qdrop(p):
+    f = form(p, 'Get a free quote', 'We aim to reply the same day. No callout fee.', compact=True).replace('<form class="formcard compact"', '<form class="formcard compact" id="qdform"')
+    return f'''<div class="qdrop" id="qdrop" aria-hidden="true" data-lenis-prevent><div class="wrap qdgrid">
+<div class="qdside"><span class="eyebrow">Free quotes · no callout fee</span><h3>Tell us about the job.</h3>
+<p>Free, no-obligation inspection and a clear, fixed price upfront. Serving Dublin, Meath &amp; Kildare.</p>
+<a class="qdl" href="{TEL}">{I['phone']}<span><b>Call {PHONE}</b><small data-open>Mon–Sun 7am–10pm</small></span></a>
+<a class="qdl wa" href="{WAURL}" target="_blank" rel="noopener">{WA_ICON}<span><b>WhatsApp a photo</b><small>Quickest way to a price</small></span></a>
+<a class="qdl" href="#quote-wizard" data-wizard>{I['quote']}<span><b>Step-by-step quote</b><small>4 quick questions</small></span></a>
+<button class="qdx" type="button" data-qclose>{I['x']} Close</button></div>
+{f}</div></div>'''
+
 # ---------- sections ----------
 def stars(n=5): return '<span class="stars" aria-label="5 stars">' + '★' * n + '</span>'
 
@@ -416,7 +449,7 @@ def phero(p, crumb, h1, sub, img, extra=''):
 <p class="lead">{sub}</p>
 <div class="rate">{stars()} <b>5 / 5</b> Excellent reviews rating</div>
 {trustlist()}
-<div class="btn-row"><a class="btn btn-blue" href="#quote-wizard" data-wizard{extra}>Get a free quote {I['arrow']}</a><a class="btn btn-ghost" href="{p}gallery/">View our work</a></div>
+<div class="btn-row"><a class="btn btn-blue" href="#quote" data-qdrop{extra}>Get a free quote {I['arrow']}</a><a class="btn btn-ghost" href="{p}gallery/">View our work</a></div>
 </div></div></section>'''
 
 def marquee():
@@ -424,9 +457,11 @@ def marquee():
     s = ''.join(f'<span>{t}</span>' for t in items)
     return f'<div class="marquee" aria-hidden="true"><div class="track">{s}{s}</div></div>'
 
-def compare(p, b, a, t='', sub=''):
-    return f'''<figure class="ba"><div class="compare"><img class="after" src="{p}img/{a}" alt="{t or 'Project'} after, by Kiely Roofing" loading="lazy"><img class="before" src="{p}img/{b}" alt="{t or 'Project'} before" loading="lazy">
-<span class="tag l">Before</span><span class="tag r">After</span><span class="handle"></span>
+def compare(p, b, a, t='', sub='', notags=False):
+    w, h = dims(b)
+    tags = '' if notags else '<span class="tag l">Before</span><span class="tag r">After</span>'
+    return f'''<figure class="ba"><div class="compare" style="aspect-ratio:{w}/{h}"><img class="after" src="{p}img/{a}" alt="{t or 'Project'} after, by Kiely Roofing" loading="lazy"><img class="before" src="{p}img/{b}" alt="{t or 'Project'} before" loading="lazy">
+{tags}<span class="handle"></span>
 <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after"></div>
 {f'<figcaption>{t}<span>{sub}</span></figcaption>' if t else ''}</figure>'''
 
@@ -486,24 +521,29 @@ def cta(p):
     return f'''<section class="cta">{HOUSE_SVG}<div class="wrap">
 <div><span class="eyebrow">Free quotes · no callout fee</span><h2 data-split>Need roofing work done?</h2>
 <p>Whether you have noticed a leak, need damaged roofing repaired or are considering a roof replacement, talk to Kiely Roofing about the work required.</p></div>
-<div class="btn-row"><a class="btn btn-white" href="#quote-wizard" data-wizard>Get a free quote {I['arrow']}</a><a class="btn btn-ghost" href="{TEL}">{I['phone']} {PHONE}</a></div>
+<div class="btn-row"><a class="btn btn-white" href="#quote" data-qdrop>Get a free quote {I['arrow']}</a><a class="btn btn-ghost" href="{TEL}">{I['phone']} {PHONE}</a></div>
 </div></section>'''
 
 # ---------- pages ----------
 def home(p):
     rc = ''.join(f'<a href="{p}{s["slug"]}/">{I[s["icon"]]}{s["name"]}</a>' for s in ROOF)
-    return f'''<section class="hero" data-rain>
-<img class="bg" src="{p}img/roof-replacement-mkd.jpg" alt="" fetchpriority="high">
+    return f'''<section class="hero hvid">
+<video class="bg" poster="{p}video/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="{p}video/hero.webm" type="video/webm"><source src="{p}video/hero.mp4" type="video/mp4"></video>
 <div class="wrap">
 <div>
 <div class="gbadge">{stars()}<b>5 / 5</b> Excellent reviews rating</div>
 <span class="eyebrow">Roofing · Home improvements</span>
-<h1>Roofing contractors across <span class="blue">Meath, Kildare &amp; Dublin.</span></h1>
+<h1>Roofers in <span class="blue">Dublin, Meath &amp; Kildare.</span></h1>
 <p class="lead">Roof repairs, replacements and roofing work for homeowners dealing with leaking roofs, storm damage and ageing roofs. Based in Longwood. Free quotes and no callout fee.</p>
-<div class="btn-row"><a class="btn btn-blue" href="#quote-wizard" data-wizard>Get a free quote {I['arrow']}</a><a class="btn btn-ghost" href="{p}gallery/">View our work</a></div>
+<div class="btn-row"><a class="btn btn-blue" href="#quote" data-qdrop>Get a free quote {I['arrow']}</a><a class="btn btn-ghost" href="{p}gallery/">View our work</a></div>
 {trustlist()}
 </div>
-<div class="hform" data-reveal>{form(p, 'Get a Free Quote', 'We aim to reply the same day. <span class="openb" data-open></span>', compact=True)}</div>
+<div class="hcard" data-reveal><span class="openb" data-open></span>
+<h3>Free inspection &amp; quote</h3>
+<ul class="ticks">{''.join(f'<li>{I["check"]}{t}</li>' for t in ['No callout fee', 'Clear, fixed price upfront', 'Fully insured', 'Same-day inspections'])}</ul>
+<button class="btn btn-blue" type="button" data-qdrop>Get a free quote {I['chev']}</button>
+<a class="btn btn-ghost" href="{TEL}">{I['phone']} {PHONE}</a>
+<div class="hrev">{stars()}<q>The new roof looks fantastic and the whole house looks much better.</q><span>John O’Neill</span></div></div>
 </div>
 <div class="scroll">Scroll</div>
 </section>
@@ -515,7 +555,7 @@ def home(p):
 <p>Based in Longwood, Kiely Roofing &amp; Construction helps homeowners deal with leaking roofs, storm damage, ageing roofs and other roofing problems. Whether the issue needs a straightforward repair or more extensive work, we can assess what is happening and advise on the right next step.</p>
 {area_box()}
 <div class="btn-row" style="margin-top:24px"><a class="btn btn-line" href="{p}about-us/">About us {I['arrow']}</a></div></div>
-<div class="ph tall" data-clip><img src="{p}img/van-kiely-roofing-construction-2.jpg" alt="Kiely Roofing & Construction van" loading="lazy"><span class="chip">{I['pin']}Based in Longwood, Co. Meath</span></div>
+{pic(p, 'van-front.jpg', 'Kiely Roofing & Construction van, roofers serving Dublin, Meath and Kildare', f'<span class="chip">{I["pin"]}Based in Longwood, Co. Meath</span>')}
 </div></section>
 <section class="sec soft"><div class="wrap">
 <div class="sec-head"><div><span class="eyebrow">Roofing services</span><h2 data-split>Roofing work we carry out.</h2></div>
@@ -526,7 +566,7 @@ def home(p):
 <div class="cards c3 numbered" data-reveal="group">
 <div class="card"><span class="bign">01</span><h3>Something wrong with your roof?</h3><p>Most roofing problems start with something small. A leak after heavy rain, a few loose tiles, damp around the chimney or a section of roof that has started to deteriorate. Left alone, these issues can quickly lead to more serious damage inside the property.</p></div>
 <div class="card"><span class="bign">02</span><h3>Why choose Kiely Roofing?</h3><p>When you are bringing someone in to work on your home, you want to know the job will be handled properly. We focus on practical solutions, clear communication and completing the work required to keep your property protected.</p></div>
-<div class="card"><span class="bign">03</span><h3>Need roofing work done?</h3><p>Whether you have noticed a leak, need damaged roofing repaired or are considering a roof replacement, talk to Kiely Roofing about the work required.</p><a class="tlink" href="#quote-wizard" data-wizard style="margin-top:16px">Get a free quote {I['arrow']}</a></div>
+<div class="card"><span class="bign">03</span><h3>Need roofing work done?</h3><p>Whether you have noticed a leak, need damaged roofing repaired or are considering a roof replacement, talk to Kiely Roofing about the work required.</p><a class="tlink" href="#quote" data-qdrop style="margin-top:16px">Get a free quote {I['arrow']}</a></div>
 </div></div></section>
 {ba_section(p, BA_HOME)}
 {health_teaser(p)}
@@ -537,8 +577,16 @@ def home(p):
 {process(p)}
 {reviews_sec(p, [(n, g, t, s) for n, g, t, s in ALL_REVIEWS[:2]] + [r for r in ALL_REVIEWS if r[0] in ('Brian Farrell', 'Conor McCarthy')])}
 {why()}
+{areas_sec(p)}
 {brands(p)}
 {cta(p)}'''
+
+def intro_visual(p, s):
+    f = s['imgs'][0]
+    if f in COMP:
+        b, a, nt = COMP[f]
+        return f'<div data-reveal>{compare(p, b, a, s["name"], "Drag to compare", notags=nt)}</div>'
+    return pic(p, f, s['name'] + ' by Kiely Roofing & Construction, Dublin, Meath and Kildare')
 
 def service_page(s):
     def body(p):
@@ -554,20 +602,20 @@ def service_page(s):
 <div class="ba-grid g3" data-reveal="group">{''.join(compare(p, b, a, s['name'], 'Drag to compare') for b, a in s['ba'])}</div></div></section>'''
         else:
             vis = f'''<section class="sec soft"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Recent work</span><h2 data-split>See the transformation.</h2></div><a class="btn btn-line" href="{p}gallery/">View our gallery {I['arrow']}</a></div>
-<div class="tri" data-reveal="group">{''.join(f'<div class="ph"><img src="{p}img/{g}" alt="{s["name"]} by Kiely Roofing" loading="lazy"></div>' for g in s['gallery'])}</div></div></section>'''
+<div class="boxes b3" data-reveal="group">{''.join(f'<a class="tile" href="{p}img/{g}"><img src="{p}img/{g}" alt="{s["name"]} by Kiely Roofing" loading="lazy"></a>' for g in s['gallery'])}</div></div></section>'''
         others = [o for o in (ROOF if s['group'] == 'roof' else HOME) if o is not s]
         oc = ''.join(f'<a class="mini" href="{p}{o["slug"]}/"><img src="{p}img/{o["imgs"][1]}" alt="" loading="lazy"><span>{I[o["icon"]]}{o["name"]}</span></a>' for o in others)
-        return f'''{phero(p, [(s['name'], s['slug'] + '/')], s['name'] + '<br><span class="blue">across Meath, Kildare &amp; Dublin.</span>', s['intro'][0], s['hero'], f' data-wizard="{s["name"]}"').replace('data-wizard data-wizard', 'data-wizard')}
+        return f'''{phero(p, [(s['name'], s['slug'] + '/')], s['name'] + '<br><span class="blue">Dublin, Meath &amp; Kildare.</span>', s['intro'][0], s['hero'], f' data-svc="{s["name"]}"')}
 {marquee()}
 <section class="sec"><div class="wrap split">
 <div><span class="eyebrow">{s['eyebrow']}</span><h2 data-split>{s['h2']}</h2>{''.join(f'<p>{x}</p>' for x in s['intro'][1:])}
-<div class="callrow"><a class="btn btn-blue" href="#quote-wizard" data-wizard="{s['name']}">Get a free quote {I['arrow']}</a><div><small>Prefer to call?</small><a class="num" href="{TEL}">{PHONE}</a></div></div></div>
-<div class="ph tall" data-clip><img src="{p}img/{s['imgs'][0]}" alt="{s['name']} by Kiely Roofing & Construction" loading="lazy"></div>
+<div class="callrow"><a class="btn btn-blue" href="#quote-wizard" data-qdrop data-svc="{s['name']}">Get a free quote {I['arrow']}</a><div><small>Prefer to call?</small><a class="num" href="{TEL}">{PHONE}</a></div></div></div>
+{intro_visual(p, s)}
 </div></section>
 <section class="sec soft"><div class="wrap split rev">
 <div><h2 data-split>{s['list_h']}</h2>{f'<p>{s["list_intro"]}</p>' if s['list_intro'] else ''}<ul class="ticks cols2">{items}</ul>{f'<p>{s["list_outro"]}</p>' if s['list_outro'] else ''}
-<a class="btn btn-line" href="#quote-wizard" data-wizard="{s['name']}">{s['cta']} {I['arrow']}</a></div>
-<div class="ph" data-clip><img src="{p}img/{s['imgs'][1]}" alt="{s['name']} in progress" loading="lazy"></div>
+<a class="btn btn-line" href="#quote-wizard" data-qdrop data-svc="{s['name']}">{s['cta']} {I['arrow']}</a></div>
+{pic(p, s['imgs'][1], s['name'] + ' in progress across Dublin, Meath and Kildare')}
 </div></section>
 <section class="sec"><div class="wrap"><div class="center" style="margin-bottom:48px"><span class="eyebrow">The details matter</span><h2 data-split>What you need to know.</h2></div>
 <div class="cards c3 numbered" data-reveal="group">{det}</div></div></section>
@@ -585,13 +633,13 @@ def service_page(s):
 
 def about(p):
     rv = [r for r in ALL_REVIEWS if r[0] in ('David Reilly', 'Aisling Doyle')]
-    return f'''{phero(p, [('About Us', 'about-us/')], 'About <span class="blue">Kiely Roofing &amp; Construction.</span>', 'Roofing and home improvement work for residential properties, from individual repairs to larger renovation projects.', 'van-kiely-roofing-construction.jpg')}
+    return f'''{phero(p, [('About Us', 'about-us/')], 'About <span class="blue">Kiely Roofing &amp; Construction.</span>', 'Roofing and home improvement work for residential properties, from individual repairs to larger renovation projects.', 'van-front.jpg')}
 <section class="sec"><div class="wrap split">
 <div><span class="eyebrow">About us</span><h2 data-split>About Kiely Roofing &amp; Construction.</h2>
 <p class="lead" style="color:var(--ink)">Kiely Roofing carries out roofing and home improvement work for residential properties, from individual repairs to larger renovation projects.</p>
 <p>Roofing is at the heart of the business, with work covering {link(p, 'Roof Repairs').lower().replace('roof repairs', 'roof repairs')}, replacement roofs, chimney repairs, flat roofing, guttering and dry verge systems. Alongside this, Kiely Roofing also undertakes attic conversions, house extensions, renovations, plastering and interior and exterior painting.</p>
 <a class="btn btn-blue" href="{p}contact-us/">Contact us {I['arrow']}</a></div>
-<div class="ph tall" data-clip><img src="{p}img/van-kiely-roofing-construction-3.jpg" alt="Kiely Roofing & Construction van" loading="lazy"></div>
+{pic(p, 'van-rear.jpg', 'Kiely Roofing & Construction van: roofing, tiling, felting, roof repairs, flat roofs')}
 </div></section>
 <section class="sec soft"><div class="wrap split rev">
 <div><h2 data-split>From roof repairs to larger projects.</h2>
@@ -600,10 +648,10 @@ def about(p):
 <h2 data-split style="margin-top:40px">Roofing &amp; home improvements under one roof.</h2>
 <p>As well as roofing work, Kiely Roofing carries out attic conversions, extensions, renovations, plastering and painting.</p>
 <p>This wider range of services is useful where a project involves more than one part of the property and helps keep the work with one team from start to finish.</p></div>
-<div class="ph tall" data-clip><img src="{p}img/roof-repair2.jpg" alt="Chimney and pitched roof repair work from scaffolding" loading="lazy"></div>
+{pic(p, 'roof-repair2.jpg', 'Chimney and pitched roof repair work from scaffolding')}
 </div></section>
 <section class="sec"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">The difference</span><h2 data-split>See the transformation.</h2></div><a class="btn btn-line" href="{p}gallery/">View our gallery {I['arrow']}</a></div>
-<div class="tri" data-reveal="group">{''.join(f'<div class="ph"><img src="{p}img/{g}" alt="Home improvement project by Kiely Roofing" loading="lazy"></div>' for g in ['house-renovation2.jpg', 'house-renovation-1.jpg', 'interior-exterior-painting-mkd.jpg'])}</div></div></section>
+<div class="ba-grid g3" data-reveal="group">{compare(p, 'ba-house-rennovation-before.jpg', 'ba-house-rennovation-after.jpg', 'House renovation', 'Drag to compare')}{compare(p, 'ba-attic-converstion-before.jpg', 'ba-attic-converstion-after.jpg', 'Attic conversion', 'Drag to compare')}{compare(p, 'ba-plastering-before.jpg', 'ba-plastering-after.jpg', 'Plastering', 'Drag to compare')}</div></div></section>
 {reviews_sec(p, rv)}
 {process(p)}
 {why()}
@@ -620,14 +668,17 @@ GAL = [('roof-replacement-mkd-2.jpg', 'roof'), ('roof-replacement-mkd.jpg', 'roo
 GAL_BA = [('roof-replacement-1a.jpg', 'roof-replacement-1b.jpg', 'Roof replacement'), ('roof-replacement-2a.jpg', 'roof-replacement-2b.jpg', 'Roof replacement'), ('roof-replacement-3a.jpg', 'roof-replacement-3b.jpg', 'Roof replacement'),
           ('b1.jpg', 'a1.jpg', 'Gutter repairs'), ('b5-1.jpg', 'a5.jpg', 'Gutter repairs'), ('b3.jpg', 'a3.jpg', 'Gutter repairs'), ('plastering-1a.jpg', 'plastering-1b.jpg', 'Plastering')]
 def gallery(p):
-    g = ''.join(f'<a href="{p}img/{f}" data-cat="{c}"><img src="{p}img/{f}" alt="Project by Kiely Roofing & Construction" loading="lazy"></a>' for f, c in GAL)
-    fb = ''.join(f'<button type="button" data-f="{k}"{" class=\"on\"" if k == "all" else ""}>{v}</button>' for k, v in [('all', 'All work'), ('roof', 'Roofing'), ('flat', 'Flat roofs'), ('gutters', 'Gutters & verges'), ('home', 'Home improvements'), ('ba', 'Before & after')])
-    return f'''{phero(p, [('Gallery', 'gallery/')], 'Recent projects <span class="blue">before &amp; after.</span>', 'Explore our gallery of completed projects, featuring before and after images that showcase the quality of our work.', 'roof-replacement-2b.jpg')}
-<section class="sec"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Drag to compare</span><h2 data-split>Before &amp; after.</h2></div><p>Drag the slider across each photo to see the difference.</p></div>
-<div class="ba-grid g3" data-reveal="group">{''.join(compare(p, b, a, t, 'Kiely Roofing') for b, a, t in GAL_BA)}</div></div></section>
-<section class="sec soft"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Project gallery</span><h2 data-split>Our work.</h2></div><p>Tap any photo to see it full size.</p></div>
+    tiles = [(f, c) for f, c in GAL if f not in SKIP and 0.7 <= dims(f)[0] / dims(f)[1] <= 1.45]
+    g = ''.join(f'<a class="tile" href="{p}img/{f}" data-cat="{c}"><img src="{p}img/{f}" alt="Roofing and building project by Kiely Roofing & Construction, Dublin, Meath and Kildare" loading="lazy"></a>' for f, c in tiles)
+    fb = ''.join(f'<button type="button" data-f="{k}"{" class=\"on\"" if k == "all" else ""}>{v}</button>' for k, v in [('all', 'All work'), ('roof', 'Roofing'), ('flat', 'Flat roofs'), ('gutters', 'Gutters & verges'), ('home', 'Home improvements')])
+    pairs = GAL_BA + [(COMP[k][0], COMP[k][1], t, COMP[k][2]) for k, t in [('roof-repair-before-after.jpg', 'Roof repair'), ('flat-roof-before-after.jpg', 'Flat roof'), ('dry-verge-replacement.jpg', 'Dry verge'), ('house-rennovation-before-after.jpg', 'House renovation'), ('attic-converstion-before-after.jpg', 'Attic conversion'), ('interior-exterior-painting-2.jpg', 'Exterior painting'), ('plastering-before-after.jpg', 'Plastering')]]
+    sl = ''.join(compare(p, x[0], x[1], x[2], 'Drag to compare', notags=(x[3] if len(x) > 3 else False)) for x in pairs)
+    return f'''{phero(p, [('Gallery', 'gallery/')], 'Recent projects <span class="blue">across Dublin, Meath &amp; Kildare.</span>', 'Explore our gallery of completed roofing and home improvement projects, featuring before and after images that showcase the quality of our work.', 'roof-replacement-2b.jpg')}
+<section class="sec"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Project gallery</span><h2 data-split>Our work.</h2></div><p>Tap any photo to see it full size.</p></div>
 <div class="filters" data-filters="#galgrid">{fb}</div>
-<div class="gal" id="galgrid">{g}</div></div></section>
+<div class="boxes" id="galgrid">{g}</div></div></section>
+<section class="sec soft"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Drag to compare</span><h2 data-split>Before &amp; after.</h2></div><p>Drag the slider across each photo to see the difference.</p></div>
+<div class="ba-grid g3" data-reveal="group">{sl}</div></div></section>
 {cta(p)}'''
 
 def reviews(p):
@@ -642,21 +693,75 @@ def reviews(p):
     return body, ld
 
 def contact(p):
-    return f'''{phero(p, [('Contact Us', 'contact-us/')], 'Contact <span class="blue">Kiely Roofing &amp; Construction.</span>', 'Contact us for any enquiries you may have regarding our services. We also provide free quotes.', 'roofing-guttering-slider.jpg')}
-<section class="sec" style="padding-top:0"><div class="wrap">
-<div class="info" data-reveal="group">
-<a href="{TEL}"><span class="ico">{I['phone']}</span><div><h3>Call</h3><p data-cfg="phone">{PHONE}</p><p class="openline" data-open></p></div></a>
-<a href="mailto:{EMAIL}"><span class="ico">{I['mail']}</span><div><h3>Email</h3><p data-cfg="email">{EMAIL}</p></div></a>
-<a href="{WAURL}" target="_blank" rel="noopener"><span class="ico">{WA_ICON}</span><div><h3>WhatsApp</h3><p>Send us a photo of the job</p></div></a>
-</div>
-<div class="split" style="margin-top:80px;align-items:start">
-<div><span class="eyebrow">Get in touch</span><h2 data-split>Send us your enquiry.</h2>
-<p>Use the details above, or fill out the form and we will get back to you as soon as possible.</p>
-<div class="hours"><h3>{I['clock']} Hours</h3><p>Mon–Sun: 7am–10pm</p><h3 style="margin-top:14px">{I['pin']} Service areas</h3><p>We provide services across Meath, Kildare &amp; Dublin. Based in Longwood, Co. Meath.</p></div>
-{area_box()}
-<div class="map" style="margin-top:24px"><iframe title="Kiely Roofing location: Longwood, Co. Meath" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Longwood%2C%20Co.%20Meath%2C%20Ireland&amp;z=10&amp;output=embed"></iframe></div></div>
-<div data-reveal>{form(p, 'Get a Free Quote', 'Free quotes and no callout fee.')}</div>
-</div></div></section>
+    return f'''<section class="phero chero" data-rain>
+<img class="bg" src="{p}img/roofing-guttering-slider.jpg" alt="" fetchpriority="high">
+<div class="wrap chgrid">
+<div data-reveal>{form(p, 'Get a Free Quote', 'Free quotes and no callout fee. We aim to reply the same day.')}</div>
+<div><div class="crumb"><a href="{p}">Home</a><span>/</span><b>Contact Us</b></div>
+<h1>Contact <span class="blue">Kiely Roofing &amp; Construction.</span></h1>
+<p class="lead">Contact us for any enquiries you may have regarding our services. We also provide free quotes. Fill out the form and we will get back to you as soon as possible.</p>
+<ul class="clist">
+<li><a href="{TEL}">{I['phone']}<span><small>Call</small><b data-cfg="phone">{PHONE}</b></span></a></li>
+<li><a href="mailto:{EMAIL}">{I['mail']}<span><small>Email</small><b data-cfg="email">{EMAIL}</b></span></a></li>
+<li><a href="{WAURL}" target="_blank" rel="noopener">{WA_ICON}<span><small>WhatsApp</small><b>Send us a photo of the job</b></span></a></li>
+<li><span class="nolink">{I['clock']}<span><small>Hours</small><b>Mon–Sun: 7am–10pm</b></span></span></li>
+</ul></div>
+</div></section>
+<section class="sec"><div class="wrap split" style="align-items:start">
+<div><span class="eyebrow">Service areas</span><h2 data-split>Roofers across Dublin, Meath &amp; Kildare.</h2>
+<p>We provide services across Meath, Kildare &amp; Dublin and surrounding areas. Based in Longwood, Co. Meath.</p>
+{area_box()}</div>
+<div class="map"><iframe title="Kiely Roofing location: Longwood, Co. Meath" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Longwood%2C%20Co.%20Meath%2C%20Ireland&amp;z=9&amp;output=embed"></iframe></div>
+</div></section>
+{cta(p)}'''
+
+AREAS = {'Dublin': ['Lucan', 'Blanchardstown', 'Castleknock', 'Clonsilla', 'Ongar', 'Finglas', 'Clondalkin', 'Tallaght', 'Saggart', 'Rathcoole', 'Swords', 'Malahide', 'Balbriggan', 'Skerries', 'Rush', 'Lusk', 'Donabate', 'Santry', 'Glasnevin', 'Drumcondra', 'Cabra', 'Palmerstown', 'Ballyfermot', 'Mulhuddart', 'Dundrum', 'Rathfarnham', 'Terenure', 'Crumlin', 'Raheny', 'Clontarf', 'Howth', 'Portmarnock'],
+         'Meath': ['Longwood', 'Navan', 'Trim', 'Ashbourne', 'Ratoath', 'Dunboyne', 'Kells', 'Laytown', 'Bettystown', 'Enfield', 'Athboy', 'Dunshaughlin', 'Clonee', 'Stamullen', 'Duleek', 'Slane', 'Summerhill'],
+         'Kildare': ['Maynooth', 'Celbridge', 'Leixlip', 'Naas', 'Newbridge', 'Kildare Town', 'Clane', 'Kilcock', 'Edenderry', 'Carbury', 'Johnstownbridge', 'Prosperous', 'Sallins', 'Straffan', 'Athy', 'Monasterevin']}
+
+def areas_sec(p, soft=False):
+    cols = ''.join(f'<div class="area"><h3>{I["pin"]}{"Roofers " + c if c == "Dublin" else "Co. " + c}</h3><div class="chips">{"".join(f"<span>{t}</span>" for t in ts)}</div></div>' for c, ts in AREAS.items())
+    return f'''<section class="sec{' soft' if soft else ''}"><div class="wrap">
+<div class="sec-head"><div><span class="eyebrow">Areas we cover</span><h2 data-split>Roofers in Dublin, Meath &amp; Kildare.</h2></div>
+<p>Roof repairs, roof replacements, flat roofing, chimney repairs, guttering and home improvements across Dublin, Meath, Kildare and surrounding areas.</p></div>
+<div class="areas" data-reveal="group">{cols}</div>
+<div class="btn-row" style="margin-top:28px"><a class="btn btn-line" href="{p}roofers-dublin/">Roofers in Dublin {I['arrow']}</a><a class="btn btn-blue" href="#quote" data-qdrop>Get a free quote {I['arrow']}</a></div>
+</div></section>'''
+
+DUB_FAQ = [('Do you cover all of Dublin?', 'Yes. Kiely Roofing &amp; Construction carries out roofing work across Dublin, from Lucan, Blanchardstown, Castleknock and Clondalkin to Swords, Malahide, Tallaght and Dublin city, as well as Meath, Kildare and surrounding areas.'),
+           ('Do you charge a callout fee?', 'No. We offer free callouts and a free, no-obligation inspection, followed by a clear, fixed price upfront with no hidden charges.'),
+           ('Do you carry out emergency roof repairs in Dublin?', 'Yes. If high winds, heavy rain or sudden damage have left your roof exposed, emergency repair work can help make the property secure and reduce the risk of further water damage.'),
+           ('Should I repair or replace my roof?', 'Not every damaged roof needs to be replaced. A focused repair may be enough to extend the life of the existing roof. Where the roof is older, badly deteriorated or suffering from repeated problems, replacement may be the better long-term option. We will always tell you if a repair will do the job.'),
+           ('Are you insured?', 'Yes. All work is fully insured, and quality work and materials are guaranteed.')]
+def dublin_ld():
+    import json as _j
+    return '\n<script type="application/ld+json">' + _j.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a.replace('&amp;', '&')}} for q, a in DUB_FAQ]}, ensure_ascii=False) + '</script>'
+
+def dublin(p):
+    faq = ''.join(f'<details class="faq"><summary>{q}<i>{I["chev"]}</i></summary><p>{a}</p></details>' for q, a in DUB_FAQ)
+    chips = ''.join(f'<span>{t}</span>' for t in AREAS['Dublin'])
+    rv = [r for r in ALL_REVIEWS if r[0] in ('Brian Farrell', 'John O’Connell', 'Mary O’Sullivan', 'Patrick Byrne')]
+    return f'''{phero(p, [('Roofers Dublin', 'roofers-dublin/')], 'Roofers in <span class="blue">Dublin.</span>', 'Roof repairs, roof replacements, flat roofing, chimney repairs, guttering and dry verge systems for homes across Dublin. Free quotes and no callout fee.', 'roof-replacement-mkd-2.jpg')}
+{marquee()}
+<section class="sec"><div class="wrap split">
+<div><span class="eyebrow">Roofing contractors Dublin</span><h2 data-split>Dublin roofers you can rely on.</h2>
+<p>Kiely Roofing &amp; Construction carries out roof repairs, replacements and roofing work for homeowners and landlords right across Dublin. Based nearby in Longwood, Co. Meath, we work throughout Dublin city and county, as well as Meath and Kildare.</p>
+<p>Whether you have a leaking roof after heavy rain, slipped or broken tiles, storm damage, a damaged chimney or an ageing roof that keeps causing problems, we can assess what is happening and advise on the right next step. Every job starts with a free inspection and a clear, fixed written quote.</p>
+<ul class="ticks cols2">{''.join(f'<li>{I["check"]}{t}</li>' for t in ['Free inspection & quote', 'No callout fee', 'Fully insured', 'Quality work & materials guaranteed', 'Emergency roof repairs', 'Rated 5 / 5 by customers'])}</ul>
+<div class="callrow"><a class="btn btn-blue" href="#quote" data-qdrop>Get a free quote {I['arrow']}</a><div><small>Prefer to call?</small><a class="num" href="{TEL}">{PHONE}</a></div></div></div>
+{pic(p, 'roof-replacement-mkd-2.jpg', 'New roof installation in Dublin by Kiely Roofing')}
+</div></section>
+<section class="sec soft"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Roofing services in Dublin</span><h2 data-split>Roofing work we carry out.</h2></div></div>
+{svc_cards(p, ROOF)}</div></section>
+<section class="sec"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Home improvements in Dublin</span><h2 data-split>Extensions, attics &amp; renovations.</h2></div></div>
+{svc_cards(p, HOME)}</div></section>
+<section class="sec soft"><div class="wrap"><span class="eyebrow">Areas we cover in Dublin</span><h2 data-split>From Lucan to Howth.</h2>
+<div class="chips big" data-reveal>{chips}</div>{area_box()}</div></section>
+{reviews_sec(p, rv)}
+<section class="sec"><div class="wrap split" style="align-items:start">
+<div><span class="eyebrow">FAQs</span><h2 data-split>Roofing in Dublin: your questions.</h2><div class="faqs">{faq}</div></div>
+<div data-reveal>{form(p, 'Get a Free Quote', 'Free roof inspection anywhere in Dublin. No callout fee.')}</div></div></section>
+{process(p)}
 {cta(p)}'''
 
 HQ = [('How old is your roof?', [('Under 10 years', 0), ('10–20 years', 1), ('20–30 years', 2), ('30+ years / not sure', 3)]),
@@ -671,7 +776,7 @@ def health(p):
 <section class="sec"><div class="wrap health" id="health">
 <div class="hqs"><div class="hhead"><span class="hcount">0 of 6 answered</span><div class="hprog"><i></i></div><button class="hreset" type="button">Start again</button></div>{qs}</div>
 <aside class="hside"><div class="hres"><span class="eyebrow">Your result</span><h3></h3><div class="hscore"><i></i></div><div class="glabels"><span>Repair</span><span>Plan ahead</span><span>Replace</span></div><p></p>
-<div class="btn-row"><a class="btn btn-blue" href="#quote-wizard" data-wizard>Book a free inspection {I['arrow']}</a><a class="btn btn-line hlink" data-base="{p}" href="{p}roof-repairs/">About roof repairs</a></div>
+<div class="btn-row"><a class="btn btn-blue" href="#quote" data-qdrop>Book a free inspection {I['arrow']}</a><a class="btn btn-line hlink" data-base="{p}" href="{p}roof-repairs/">About roof repairs</a></div>
 <p class="fnote" style="text-align:left">This is a guide only. Not every problem needs a new roof, and we’ll always tell you if a repair will do the job.</p></div>
 <div class="hwait"><span class="ico">{I['gauge']}</span><h3>Your result appears here</h3><p>Answer all six questions to see whether your roof sounds like a repair or a replacement.</p></div></aside>
 </div></section>
@@ -693,9 +798,10 @@ def privacy(p):
 {cta(p)}'''
 
 if __name__ == '__main__':
-    page('', 'home', 'Roofing Contractors Meath | Kiely Roofing', 'Kiely Roofing & Construction provides roof repairs and roofing services across Meath, Kildare and Dublin. Call for a free quote.', home, intro=True)
+    page('', 'home', 'Roofers Dublin, Meath & Kildare | Roof Repairs & Replacement | Kiely Roofing', 'Kiely Roofing & Construction: trusted roofers in Dublin, Meath and Kildare. Roof repairs, new roofs, flat roofing, chimney repairs and guttering. Free quotes, no callout fee.', home, intro=True)
+    page('roofers-dublin/', 'roof', 'Roofers Dublin | Roof Repairs & Roofing Contractors Dublin | Kiely Roofing', 'Looking for roofers in Dublin? Kiely Roofing carries out roof repairs, roof replacements, flat roofing, chimney repairs and guttering across Dublin. Free quotes, no callout fee.', dublin, extra_ld=dublin_ld(), kw='Roofers Dublin')
     for s in SERVICES:
-        page(s['slug'] + '/', 'roof' if s['group'] == 'roof' else 'home-imp', s['title'] + ' | Kiely Roofing', s['desc'], service_page(s))
+        page(s['slug'] + '/', 'roof' if s['group'] == 'roof' else 'home-imp', f"{s['name']} Dublin, Meath & Kildare | Kiely Roofing", s['desc'].replace('Meath, Kildare & Dublin', 'Dublin, Meath & Kildare'), service_page(s), kw=s['name'])
     page('about-us/', 'about', 'About Us | Roofing & Home Improvements | Kiely Roofing', 'Kiely Roofing & Construction: roofing and home improvement work across Meath, Kildare & Dublin, from repairs to larger renovation projects.', about)
     page('gallery/', 'gallery', 'Gallery - Kiely Roofing & Construction', 'Before and after photos of roofing, guttering, flat roof, extension, renovation, plastering and painting projects by Kiely Roofing.', gallery)
     rb, rld = reviews(None)
@@ -704,6 +810,6 @@ if __name__ == '__main__':
     page('roof-health-check/', 'roof', 'Roof Health Check: Repair or Replace? | Kiely Roofing', 'Free 60-second roof check: answer six questions to see whether your roof sounds like a repair or a replacement.', health)
     page('privacy-policy/', '', 'Privacy Policy - Kiely Roofing & Construction', 'How Kiely Roofing & Construction handles your personal data.', privacy)
     # sitemap + robots
-    urls = [''] + [s['slug'] for s in SERVICES] + ['about-us', 'gallery', 'reviews', 'contact-us', 'roof-health-check', 'privacy-policy']
+    urls = ['', 'roofers-dublin'] + [s['slug'] for s in SERVICES] + ['about-us', 'gallery', 'reviews', 'contact-us', 'roof-health-check', 'privacy-policy']
     open(os.path.join(ROOT, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'<url><loc>{SITE}/{u}</loc></url>\n' for u in urls) + '</urlset>\n')
     open(os.path.join(ROOT, 'robots.txt'), 'w').write(f'User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n')

@@ -205,12 +205,12 @@
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', cls || '');
       g.innerHTML = `<path d="${d}" stroke="rgba(255,140,70,.6)" stroke-width="${wd * 7}" filter="url(#glow)"/><path d="${d}" stroke="#ffe4d2" stroke-width="${wd * 2.2}"/><path d="${d}" stroke="#fff" stroke-width="${wd}"/>`;
       svg.appendChild(g);
-      $$('path', g).forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.getBoundingClientRect(); p.style.transition = 'stroke-dashoffset .16s cubic-bezier(.6,0,.9,.5)'; p.style.strokeDashoffset = 0; });
+      $$('path', g).forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.getBoundingClientRect(); p.style.transition = 'stroke-dashoffset .26s cubic-bezier(.3,.6,.4,1)'; p.style.strokeDashoffset = 0; });
       return g;
     };
     // distant flicker first
-    setTimeout(() => { flashTo(.12, 60); setTimeout(() => flashTo(0, 300), 70); }, 250);
-    setTimeout(() => { flashTo(.06, 40); setTimeout(() => flashTo(0, 200), 50); }, 480);
+    setTimeout(() => { flashTo(.07, 200); setTimeout(() => flashTo(0, 500), 220); }, 250);
+    
     // the strike
     setTimeout(() => {
       const sx = tx + rand(-W * .18, W * .18);
@@ -222,14 +222,14 @@
         groups.push(addBolt(boltPath(bx, by, bx + rand(-W * .22, W * .22), by + rand(H * .08, H * .22), 30), 1.1, 'fork'));
       }
       setTimeout(() => {
-        flashTo(.9, 30); loader.classList.add('struck');
+        flashTo(.5, 80); loader.classList.add('struck');
         // sparks from the peak
         for (let s = 0; s < 26; s++) {
           const sp = document.createElement('i'); sp.className = 'spark'; sp.style.left = tx + 'px'; sp.style.top = ty + 'px'; loader.appendChild(sp);
           const a = rand(Math.PI * 1.05, Math.PI * 1.95), dist = rand(60, 220);
           sp.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: `translate(${Math.cos(a) * dist}px,${Math.sin(a) * dist * .6 + rand(40, 120)}px) scale(.2)`, opacity: 0 }], { duration: rand(500, 900), easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' });
         }
-        setTimeout(() => flashTo(0, 450), 60);
+        setTimeout(() => flashTo(0, 900), 90);
         // electricity crackles down both slopes of the logo's roof
         const [lx, ly] = pt('l'), [rx, ry] = pt('r'), L = [r.left + r.width * lx, r.top + r.height * ly], R = [r.left + r.width * rx, r.top + r.height * ry];
         [0, 140, 300].forEach(t => setTimeout(() => {
@@ -237,13 +237,13 @@
           setTimeout(() => arcs.forEach(g => g.remove()), 110);
         }, t));
         // bolt flickers out
-        const fl = [[120, .25], [190, 1], [260, .4], [330, 0]];
-        fl.forEach(([t, o]) => setTimeout(() => groups.forEach(g => g.style.opacity = o), t));
-        setTimeout(() => { flashTo(.55, 20); setTimeout(() => flashTo(0, 380), 40); }, 200);
+        groups.forEach(g => { g.style.transition = 'opacity .45s ease-out'; });
+        setTimeout(() => groups.forEach(g => g.style.opacity = 0), 220);
+        
       }, 150);
     }, 750);
     // lift the whole intro up to reveal the home page
-    setTimeout(() => { html.classList.add('intro-out'); heroIn(); setTimeout(finishIntro, 850); }, 2700);
+    setTimeout(() => { html.classList.add('intro-out'); heroIn(); setTimeout(finishIntro, 1150); }, 2900);
   }
 
   /* split headings into words */

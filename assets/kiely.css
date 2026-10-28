@@ -218,3 +218,76 @@ form:has(+.wdone.on){display:none}
 .areabox .btn{width:auto;margin-top:0;flex:none}
 .split>*,.hero .wrap>*,.fgrid>*{min-width:0}
 .areabox input{width:100%}
+
+/* ---------- v2: hero video, drop-down quote, whole photos, gallery boxes, contact top ---------- */
+.hero.hvid video.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6}
+.hero.hvid::before{background:linear-gradient(100deg,rgba(19,19,22,.92) 0%,rgba(19,19,22,.72) 48%,rgba(19,19,22,.35) 100%),linear-gradient(0deg,var(--deep) 0%,transparent 30%)}
+.hcard{position:relative;padding:34px;border-radius:28px;background:rgba(19,19,22,.55);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);max-width:440px;margin-left:auto;box-shadow:0 40px 90px -30px rgba(0,0,0,.8)}
+.hcard h3{font-size:1.7rem;margin:14px 0 18px}
+.hcard .ticks{margin-bottom:22px}.hcard .ticks li{color:rgba(255,255,255,.85)}
+.hcard .btn{width:100%;margin-bottom:10px}
+.hcard .btn svg{width:16px;height:16px}
+.hrev{margin-top:14px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12)}
+.hrev q{display:block;quotes:none;color:#fff;font-size:.95rem;margin:6px 0 4px}
+.hrev span:last-child{font-size:.8rem;color:rgba(255,255,255,.6);font-weight:600}
+/* drop-down quote panel */
+.qbtn svg{width:16px;height:16px;transition:transform .35s}
+html.qdrop-open .qbtn svg{transform:rotate(180deg)}
+html.qdrop-open .hdr{background:rgba(19,19,22,.98);top:0}
+html.qdrop-open .topbar{transform:translateY(-100%)}
+.qdrop{position:absolute;left:0;right:0;top:100%;background:#fff;color:var(--ink);max-height:calc(100dvh - 80px);overflow-y:auto;overscroll-behavior:contain;
+  clip-path:inset(0 0 100% 0);opacity:0;visibility:hidden;transform:translateY(-12px);transition:clip-path .55s cubic-bezier(.7,0,.2,1),opacity .35s,transform .55s cubic-bezier(.2,.8,.2,1),visibility 0s .55s;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+html.qdrop-open .qdrop{clip-path:inset(0 0 0 0);opacity:1;visibility:visible;transform:none;transition:clip-path .55s cubic-bezier(.7,0,.2,1),opacity .35s,transform .55s cubic-bezier(.2,.8,.2,1),visibility 0s}
+.qdgrid{display:grid;grid-template-columns:.85fr 1.15fr;gap:40px;padding:36px 0 40px;align-items:start}
+.qdside h3{font-size:1.9rem;margin-bottom:10px}
+.qdside p{color:var(--muted)}
+.qdl{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;border:1.5px solid var(--line);margin-top:10px;transition:.2s}
+.qdl:hover{border-color:var(--blue);transform:translateX(4px)}
+.qdl svg{width:24px;height:24px;color:var(--blue);flex:none}
+.qdl.wa svg{color:#25d366}
+.qdl b{display:block}.qdl small{display:block;color:var(--muted);font-size:.8rem}
+.qdx{margin-top:16px;border:0;background:none;color:var(--muted);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.qdx svg{width:16px;height:16px}
+.qdrop .formcard{box-shadow:none;border:1px solid var(--line)}
+.qdrop .formcard .fgrid{grid-template-columns:1fr 1fr}
+.qdrop .formcard label.f:nth-child(3),.qdrop .formcard label.f:nth-child(4){grid-column:auto}
+/* whole photos */
+.ph.fit{aspect-ratio:auto}
+.ph.fit img{height:100%}
+.ph.fit .chip{z-index:2}
+/* gallery boxes */
+.boxes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.boxes.b3{grid-template-columns:repeat(3,1fr)}
+.tile{position:relative;display:block;aspect-ratio:1;border-radius:18px;overflow:hidden;background:var(--line);box-shadow:0 14px 30px -18px rgba(0,0,0,.4)}
+.tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.tile:hover img{transform:scale(1.06)}
+.tile[hidden]{display:none}
+.compare{aspect-ratio:auto}
+/* contact: form right at the top */
+.chero{padding:170px 0 80px}
+.chgrid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.chgrid h1{font-size:clamp(2rem,4vw,3.3rem)}
+.clist{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px}
+.clist a,.clist .nolink{display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff}
+.clist a:hover{background:rgba(255,255,255,.1)}
+.clist svg{width:24px;height:24px;color:var(--blue-light);flex:none}
+.clist small{display:block;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:700}
+.clist b{word-break:break-word}
+.chips.big{margin:26px 0 6px}.chips.big span{font-size:.95rem;padding:10px 16px}
+.areas .area h3{font-size:1.05rem}
+@media (max-width:1020px){
+  .hcard{margin:0;max-width:none}
+  .qdgrid{grid-template-columns:1fr;gap:24px;padding:26px 0 30px}
+  .chgrid{grid-template-columns:1fr;gap:34px}
+  .boxes{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:600px){
+  .boxes,.boxes.b3{grid-template-columns:1fr 1fr;gap:10px}
+  .tile{border-radius:12px}
+  .qdrop .formcard .fgrid{grid-template-columns:1fr}
+  .chero{padding:140px 0 60px}
+  .hcard{padding:26px}
+}
+@media (max-width:1020px){.qdrop .formcard{order:-1}.qdside p{display:none}.qdside{display:grid;gap:0}}
+.hdr .wrap.qdgrid{display:grid;align-items:start}
+.hdr .qdrop .btn{display:inline-flex}.hdr .qdrop form .btn{display:flex;width:100%}
