@@ -255,7 +255,7 @@ def head(p, title, desc, path, extra_ld='', kw=''):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"></noscript>
-<link rel="stylesheet" href="{p}assets/style.css?v=5"><link rel="stylesheet" href="{p}assets/kiely.css?v=5">
+<link rel="stylesheet" href="{p}assets/style.css?v=6"><link rel="stylesheet" href="{p}assets/kiely.css?v=6">
 <script type="application/ld+json">{_j.dumps(ld, ensure_ascii=False)}</script>{extra_ld}'''
 
 def header(p, active):
@@ -329,7 +329,7 @@ def wizard(p):
 <label class="f full"><span>Town / area *</span><input name="town" required placeholder="e.g. Navan, Maynooth, Lucan"></label>
 <label class="f full"><span>Anything else? (optional)</span><textarea name="details" placeholder="e.g. leak above the back bedroom after the storm"></textarea></label>
 </div>
-<div class="wbtns"><button class="btn wwa" type="button">{WA_ICON} Send on WhatsApp</button><button class="btn btn-line wmail" type="button">{I['mail']} Send by email</button></div>
+<div class="wbtns"><button class="btn wwa" type="button">{WA_ICON} Send on WhatsApp</button><button class="btn btn-line wmail" type="button">{I['mail']} Send request</button></div>
 <p class="fnote">{I['camera'].replace('<svg', '<svg width="16" height="16" style="display:inline;vertical-align:-3px"')} Tip: on WhatsApp you can attach photos of the roof. It speeds up your quote.</p></form>
 <div class="wdone"><span class="ico">{I['check']}</span><h3>Thanks, nearly done!</h3><p>Just press send in WhatsApp or your email app. We’ll come back to you with your free quote. Urgent? Call <a href="{TEL}">{PHONE}</a>.</p></div>
 </div>
@@ -366,7 +366,7 @@ def scripts(p):
     return f'''<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-<script src="{p}assets/site.js?v=5" defer></script><script src="{p}assets/tools.js?v=5" defer></script>'''
+<script src="{p}assets/site.js?v=6" defer></script><script src="{p}assets/tools.js?v=6" defer></script>'''
 
 def page(path, active, title, desc, body, intro=False, extra_ld='', kw=''):
     p = '../' * path.count('/')

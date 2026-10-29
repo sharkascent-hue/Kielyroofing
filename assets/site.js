@@ -10,9 +10,10 @@
     // Paste a Web3Forms access key here (free at web3forms.com) to have forms send straight to the inbox.
     // Left blank, forms open the visitor's email app with everything filled in.
     formEndpoint: 'https://api.web3forms.com/submit',
-    formKey: ''
+    formKey: '15e1eadb-5d91-4930-a3ee-d385acfc665b'
   };
   /* ============================================================ */
+  window.KIELY_FORMS = { endpoint: CONFIG.formEndpoint, key: CONFIG.formKey }; // used by the quote wizard too
   const html = document.documentElement;
   html.classList.add('js');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

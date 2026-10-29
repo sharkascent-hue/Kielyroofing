@@ -99,8 +99,28 @@
       return ok;
     };
     $('.wwa', wiz).addEventListener('click', e => { e.preventDefault(); if (!valid()) return; window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg() + '\n(I can send photos of the roof here.)')}`, '_blank', 'noopener'); done(); });
-    $('.wmail', wiz).addEventListener('click', e => { e.preventDefault(); if (!valid()) return; location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Free quote request: ' + (data.service || 'Roofing'))}&body=${encodeURIComponent(msg())}`; done(); });
-    const done = () => { $('.wdone', wiz).classList.add('on'); };
+    $('.wmail', wiz).addEventListener('click', async e => {
+      e.preventDefault(); if (!valid()) return;
+      const subject = 'Free quote request: ' + (data.service || 'Roofing');
+      const mailto = () => { location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(msg())}`; done(); };
+      const F = window.KIELY_FORMS || {};
+      if (!F.key) return mailto();
+      const btn = e.currentTarget, label = btn.innerHTML; btn.disabled = true; btn.textContent = 'Sending…';
+      try {
+        const f = Object.fromEntries(new FormData($('form', wiz)).entries());
+        const r = await fetch(F.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ access_key: F.key, subject, from_name: 'Kiely Roofing website (quote wizard)', service: data.service, property: data.property, when: data.urgency, name: f.name, phone: f.phone, area: f.town, details: f.details, message: msg() }) });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || j.success === false) throw new Error();
+        done(true);
+      } catch (err) { mailto(); }
+      btn.disabled = false; btn.innerHTML = label;
+    });
+    const done = sent => {
+      const d = $('.wdone', wiz);
+      if (sent) { $('h3', d).textContent = 'Thanks, your request is in!'; $('p', d).innerHTML = 'We’ll be back to you with your free quote, usually the same day. Urgent? Call <a href="tel:+353873592163">087 359 2163</a>.'; }
+      d.classList.add('on');
+    };
     const open = (svc, e) => {
       if (e) e.preventDefault(); html.classList.add('wiz-open');
       $('.wdone', wiz).classList.remove('on');
