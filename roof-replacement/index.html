@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"></noscript>
-<link rel="stylesheet" href="../assets/style.css?v=6"><link rel="stylesheet" href="../assets/kiely.css?v=6">
+<link rel="stylesheet" href="../assets/style.css?v=7"><link rel="stylesheet" href="../assets/kiely.css?v=7">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "RoofingContractor", "name": "Kiely Roofing & Construction", "url": "https://kielyconstruction.ie/", "telephone": "+353873592163", "email": "info@kielyroofing.ie", "image": "https://kielyconstruction.ie/img/van-front.jpg", "logo": "https://kielyconstruction.ie/img/logo.png", "address": {"@type": "PostalAddress", "addressLocality": "Longwood", "addressRegion": "Co. Meath", "addressCountry": "IE"}, "areaServed": [{"@type": "City", "name": "Dublin"}, {"@type": "AdministrativeArea", "name": "County Dublin"}, {"@type": "AdministrativeArea", "name": "County Meath"}, {"@type": "AdministrativeArea", "name": "County Kildare"}, {"@type": "Place", "name": "Lucan"}, {"@type": "Place", "name": "Blanchardstown"}, {"@type": "Place", "name": "Castleknock"}, {"@type": "Place", "name": "Swords"}, {"@type": "Place", "name": "Clondalkin"}, {"@type": "Place", "name": "Tallaght"}, {"@type": "Place", "name": "Navan"}, {"@type": "Place", "name": "Trim"}, {"@type": "Place", "name": "Ashbourne"}, {"@type": "Place", "name": "Maynooth"}, {"@type": "Place", "name": "Celbridge"}, {"@type": "Place", "name": "Naas"}], "knowsAbout": ["Roof repairs", "Roof replacement", "Flat roofing", "Chimney repairs", "Guttering", "Dry verge", "Attic conversions", "House extensions"], "openingHours": "Mo-Su 07:00-22:00", "priceRange": "Free quotes", "aggregateRating": {"@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": "24"}}</script>
 </head>
 <body>
@@ -46,11 +46,12 @@
 <h3>Get a free quote</h3><p class="sub">We aim to reply the same day. No callout fee.</p>
 <ul class="qperks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>No callout fee</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Fixed price upfront</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Fully insured</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Same-day inspections</li></ul><div class="fmsg" role="status"></div>
 <div class="fgrid">
-<label class="f"><span>Name *</span><input name="name" autocomplete="name" required></label>
 <label class="f"><span>Phone *</span><input name="phone" type="tel" autocomplete="tel" required></label>
-<label class="f full"><span>Email *</span><input name="email" type="email" autocomplete="email" required></label>
-<label class="f full"><span>Service</span><select name="service"><option value="">Choose a service</option><option>Roof Repairs</option><option>Roof Replacement</option><option>Chimney Repairs</option><option>Flat Roofing</option><option>Guttering</option><option>Dry Verge Systems</option><option>House Renovations</option><option>House Extensions</option><option>Attic Conversions</option><option>Interior & Exterior Painting</option><option>Plastering</option><option>Other</option></select></label>
-<label class="f full"><span>How can we help? *</span><textarea name="message" placeholder="Tell us about the job" required></textarea></label>
+<label class="f"><span>Eircode *</span><input name="eircode" autocomplete="postal-code" required maxlength="8" pattern="[A-Za-z][0-9][0-9Ww] ?[0-9A-Za-z]{4}" placeholder="e.g. D15 RY6R" style="text-transform:uppercase" title="Your Eircode, e.g. D15 RY6R"></label>
+<label class="f"><span>Name (optional)</span><input name="name" autocomplete="name"></label>
+<label class="f"><span>Email (optional)</span><input name="email" type="email" autocomplete="email"></label>
+<label class="f full"><span>Service (optional)</span><select name="service"><option value="">Choose a service</option><option>Roof Repairs</option><option>Roof Replacement</option><option>Chimney Repairs</option><option>Flat Roofing</option><option>Guttering</option><option>Dry Verge Systems</option><option>House Renovations</option><option>House Extensions</option><option>Attic Conversions</option><option>Interior & Exterior Painting</option><option>Plastering</option><option>Other</option></select></label>
+<label class="f full"><span>How can we help? (optional)</span><textarea name="message" placeholder="Tell us about the job"></textarea></label>
 </div>
 <input class="hp" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
 <button class="btn btn-blue" type="submit">Send enquiry <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -118,11 +119,12 @@
 <h3>Get a Free Quote</h3><p class="sub">We aim to reply the same day.</p>
 <div class="fmsg" role="status"></div>
 <div class="fgrid">
-<label class="f"><span>Name *</span><input name="name" autocomplete="name" required></label>
 <label class="f"><span>Phone *</span><input name="phone" type="tel" autocomplete="tel" required></label>
-<label class="f full"><span>Email *</span><input name="email" type="email" autocomplete="email" required></label>
-<label class="f full"><span>Service</span><select name="service"><option value="">Choose a service</option><option>Roof Repairs</option><option selected>Roof Replacement</option><option>Chimney Repairs</option><option>Flat Roofing</option><option>Guttering</option><option>Dry Verge Systems</option><option>House Renovations</option><option>House Extensions</option><option>Attic Conversions</option><option>Interior & Exterior Painting</option><option>Plastering</option><option>Other</option></select></label>
-<label class="f full"><span>How can we help? *</span><textarea name="message" placeholder="Tell us about the job" required></textarea></label>
+<label class="f"><span>Eircode *</span><input name="eircode" autocomplete="postal-code" required maxlength="8" pattern="[A-Za-z][0-9][0-9Ww] ?[0-9A-Za-z]{4}" placeholder="e.g. D15 RY6R" style="text-transform:uppercase" title="Your Eircode, e.g. D15 RY6R"></label>
+<label class="f"><span>Name (optional)</span><input name="name" autocomplete="name"></label>
+<label class="f"><span>Email (optional)</span><input name="email" type="email" autocomplete="email"></label>
+<label class="f full"><span>Service (optional)</span><select name="service"><option value="">Choose a service</option><option>Roof Repairs</option><option selected>Roof Replacement</option><option>Chimney Repairs</option><option>Flat Roofing</option><option>Guttering</option><option>Dry Verge Systems</option><option>House Renovations</option><option>House Extensions</option><option>Attic Conversions</option><option>Interior & Exterior Painting</option><option>Plastering</option><option>Other</option></select></label>
+<label class="f full"><span>How can we help? (optional)</span><textarea name="message" placeholder="Tell us about the job"></textarea></label>
 </div>
 <input class="hp" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
 <button class="btn btn-blue" type="submit">Send enquiry <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -164,11 +166,12 @@
 <button class="x" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button><h3>Get a Free Quote</h3><p class="sub">Free, no-obligation quote. No callout fee.</p>
 <div class="fmsg" role="status"></div>
 <div class="fgrid">
-<label class="f"><span>Name *</span><input name="name" autocomplete="name" required></label>
 <label class="f"><span>Phone *</span><input name="phone" type="tel" autocomplete="tel" required></label>
-<label class="f full"><span>Email *</span><input name="email" type="email" autocomplete="email" required></label>
-<label class="f full"><span>Service</span><select name="service"><option value="">Choose a service</option><option>Roof Repairs</option><option>Roof Replacement</option><option>Chimney Repairs</option><option>Flat Roofing</option><option>Guttering</option><option>Dry Verge Systems</option><option>House Renovations</option><option>House Extensions</option><option>Attic Conversions</option><option>Interior & Exterior Painting</option><option>Plastering</option><option>Other</option></select></label>
-<label class="f full"><span>How can we help? *</span><textarea name="message" placeholder="Tell us about the job" required></textarea></label>
+<label class="f"><span>Eircode *</span><input name="eircode" autocomplete="postal-code" required maxlength="8" pattern="[A-Za-z][0-9][0-9Ww] ?[0-9A-Za-z]{4}" placeholder="e.g. D15 RY6R" style="text-transform:uppercase" title="Your Eircode, e.g. D15 RY6R"></label>
+<label class="f"><span>Name (optional)</span><input name="name" autocomplete="name"></label>
+<label class="f"><span>Email (optional)</span><input name="email" type="email" autocomplete="email"></label>
+<label class="f full"><span>Service (optional)</span><select name="service"><option value="">Choose a service</option><option>Roof Repairs</option><option>Roof Replacement</option><option>Chimney Repairs</option><option>Flat Roofing</option><option>Guttering</option><option>Dry Verge Systems</option><option>House Renovations</option><option>House Extensions</option><option>Attic Conversions</option><option>Interior & Exterior Painting</option><option>Plastering</option><option>Other</option></select></label>
+<label class="f full"><span>How can we help? (optional)</span><textarea name="message" placeholder="Tell us about the job"></textarea></label>
 </div>
 <input class="hp" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
 <button class="btn btn-blue" type="submit">Send enquiry <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -182,9 +185,10 @@
 <div class="wstep" data-key="urgency"><h3>How soon do you need it?</h3><div class="wgrid two"><button type="button" class="wopt" data-v="Emergency"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 16.9A5 5 0 0 0 18 7h-1.3A8 8 0 1 0 4 15.3"/><path d="M13 11l-4 6h6l-4 6"/></svg></i><span>Emergency<small>Leak or damage right now</small></span></button><button type="button" class="wopt" data-v="This week"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></i><span>This week<small>Needs sorting soon</small></span></button><button type="button" class="wopt" data-v="This month"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></i><span>This month<small>Getting quotes</small></span></button><button type="button" class="wopt" data-v="Just planning"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></i><span>Just planning<small>Advice for later</small></span></button></div></div>
 <div class="wstep" data-key="details"><h3>Where should we send your free quote?</h3><div class="wsum"></div>
 <form novalidate><div class="fgrid">
-<label class="f"><span>Name *</span><input name="name" autocomplete="name" required></label>
 <label class="f"><span>Phone *</span><input name="phone" type="tel" autocomplete="tel" required></label>
-<label class="f full"><span>Town / area *</span><input name="town" required placeholder="e.g. Navan, Maynooth, Lucan"></label>
+<label class="f"><span>Eircode *</span><input name="eircode" autocomplete="postal-code" required maxlength="8" pattern="[A-Za-z][0-9][0-9Ww] ?[0-9A-Za-z]{4}" placeholder="e.g. D15 RY6R" style="text-transform:uppercase" title="Your Eircode, e.g. D15 RY6R"></label>
+<label class="f"><span>Name (optional)</span><input name="name" autocomplete="name"></label>
+<label class="f"><span>Town / area (optional)</span><input name="town" placeholder="e.g. Navan, Lucan"></label>
 <label class="f full"><span>Anything else? (optional)</span><textarea name="details" placeholder="e.g. leak above the back bedroom after the storm"></textarea></label>
 </div>
 <div class="wbtns"><button class="btn wwa" type="button"><svg width="22" height="22" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.7c-2 0-4-.5-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.7 10.7 0 1 1 16 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.3 3.4 14.7 14.7 0 0 0 5.7 5c2.1.9 2.9 1 4 .8a3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c0-.2-.3-.3-.6-.5z"/></svg> Send on WhatsApp</button><button class="btn btn-line wmail" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg> Send request</button></div>
@@ -196,6 +200,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-<script src="../assets/site.js?v=6" defer></script><script src="../assets/tools.js?v=6" defer></script>
+<script src="../assets/site.js?v=7" defer></script><script src="../assets/tools.js?v=7" defer></script>
 </body>
 </html>

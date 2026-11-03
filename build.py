@@ -255,7 +255,7 @@ def head(p, title, desc, path, extra_ld='', kw=''):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"></noscript>
-<link rel="stylesheet" href="{p}assets/style.css?v=6"><link rel="stylesheet" href="{p}assets/kiely.css?v=6">
+<link rel="stylesheet" href="{p}assets/style.css?v=7"><link rel="stylesheet" href="{p}assets/kiely.css?v=7">
 <script type="application/ld+json">{_j.dumps(ld, ensure_ascii=False)}</script>{extra_ld}'''
 
 def header(p, active):
@@ -300,11 +300,12 @@ def form(p, title='Get a Free Quote', sub='Free, no-obligation quote. No callout
 <h3>{title}</h3><p class="sub">{sub}</p>
 <div class="fmsg" role="status"></div>
 <div class="fgrid">
-<label class="f"><span>Name *</span><input name="name" autocomplete="name" required></label>
 <label class="f"><span>Phone *</span><input name="phone" type="tel" autocomplete="tel" required></label>
-<label class="f full"><span>Email *</span><input name="email" type="email" autocomplete="email" required></label>
-<label class="f full"><span>Service</span><select name="service"><option value="">Choose a service</option>{sel}</select></label>
-<label class="f full"><span>How can we help? *</span><textarea name="message" placeholder="Tell us about the job" required></textarea></label>
+<label class="f"><span>Eircode *</span><input name="eircode" autocomplete="postal-code" required maxlength="8" pattern="[A-Za-z][0-9][0-9Ww] ?[0-9A-Za-z]{{4}}" placeholder="e.g. D15 RY6R" style="text-transform:uppercase" title="Your Eircode, e.g. D15 RY6R"></label>
+<label class="f"><span>Name (optional)</span><input name="name" autocomplete="name"></label>
+<label class="f"><span>Email (optional)</span><input name="email" type="email" autocomplete="email"></label>
+<label class="f full"><span>Service (optional)</span><select name="service"><option value="">Choose a service</option>{sel}</select></label>
+<label class="f full"><span>How can we help? (optional)</span><textarea name="message" placeholder="Tell us about the job"></textarea></label>
 </div>
 <input class="hp" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
 <button class="btn btn-blue" type="submit">Send enquiry {I['arrow']}</button>
@@ -324,9 +325,10 @@ def wizard(p):
 <div class="wstep" data-key="urgency"><h3>How soon do you need it?</h3><div class="wgrid two">{urg}</div></div>
 <div class="wstep" data-key="details"><h3>Where should we send your free quote?</h3><div class="wsum"></div>
 <form novalidate><div class="fgrid">
-<label class="f"><span>Name *</span><input name="name" autocomplete="name" required></label>
 <label class="f"><span>Phone *</span><input name="phone" type="tel" autocomplete="tel" required></label>
-<label class="f full"><span>Town / area *</span><input name="town" required placeholder="e.g. Navan, Maynooth, Lucan"></label>
+<label class="f"><span>Eircode *</span><input name="eircode" autocomplete="postal-code" required maxlength="8" pattern="[A-Za-z][0-9][0-9Ww] ?[0-9A-Za-z]{{4}}" placeholder="e.g. D15 RY6R" style="text-transform:uppercase" title="Your Eircode, e.g. D15 RY6R"></label>
+<label class="f"><span>Name (optional)</span><input name="name" autocomplete="name"></label>
+<label class="f"><span>Town / area (optional)</span><input name="town" placeholder="e.g. Navan, Lucan"></label>
 <label class="f full"><span>Anything else? (optional)</span><textarea name="details" placeholder="e.g. leak above the back bedroom after the storm"></textarea></label>
 </div>
 <div class="wbtns"><button class="btn wwa" type="button">{WA_ICON} Send on WhatsApp</button><button class="btn btn-line wmail" type="button">{I['mail']} Send request</button></div>
@@ -366,7 +368,7 @@ def scripts(p):
     return f'''<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
-<script src="{p}assets/site.js?v=6" defer></script><script src="{p}assets/tools.js?v=6" defer></script>'''
+<script src="{p}assets/site.js?v=7" defer></script><script src="{p}assets/tools.js?v=7" defer></script>'''
 
 def page(path, active, title, desc, body, intro=False, extra_ld='', kw=''):
     p = '../' * path.count('/')

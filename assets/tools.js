@@ -91,7 +91,7 @@
     const summary = () => { $('.wsum', wiz).innerHTML = [['Service', data.service], ['Property', data.property], ['When', data.urgency]].filter(r => r[1]).map(([a, b]) => `<span><small>${a}</small>${b}</span>`).join(''); };
     const msg = () => {
       const f = Object.fromEntries(new FormData($('form', wiz)).entries());
-      return `Hi Kiely Roofing, I'd like a free quote.\n\nService: ${data.service || '-'}\nProperty: ${data.property || '-'}\nWhen: ${data.urgency || '-'}\nName: ${f.name}\nPhone: ${f.phone}\nArea: ${f.town}\n${f.details ? 'Details: ' + f.details + '\n' : ''}`;
+      return `Hi Kiely Roofing, I'd like a free quote.\n\nService: ${data.service || '-'}\nProperty: ${data.property || '-'}\nWhen: ${data.urgency || '-'}\nName: ${f.name || '-'}\nPhone: ${f.phone}\nEircode: ${(f.eircode || '').toUpperCase()}\nArea: ${f.town || '-'}\n${f.details ? 'Details: ' + f.details + '\n' : ''}`;
     };
     const valid = () => {
       let ok = true;
@@ -109,7 +109,7 @@
       try {
         const f = Object.fromEntries(new FormData($('form', wiz)).entries());
         const r = await fetch(F.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ access_key: F.key, subject, from_name: 'Kiely Roofing website (quote wizard)', service: data.service, property: data.property, when: data.urgency, name: f.name, phone: f.phone, area: f.town, details: f.details, message: msg() }) });
+          body: JSON.stringify({ access_key: F.key, subject, from_name: 'Kiely Roofing website (quote wizard)', service: data.service, property: data.property, when: data.urgency, name: f.name, phone: f.phone, eircode: (f.eircode || '').toUpperCase(), area: f.town, details: f.details, message: msg() }) });
         const j = await r.json().catch(() => ({}));
         if (!r.ok || j.success === false) throw new Error();
         done(true);
