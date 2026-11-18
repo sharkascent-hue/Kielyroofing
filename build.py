@@ -358,7 +358,7 @@ def footer(p):
 <li>{I['clock']}<span>Mon–Sun: 7am–10pm</span></li></ul>
 <ul style="margin-top:18px"><li><a href="{p}roofers-dublin/">Roofers Dublin</a></li><li><a href="{p}about-us/">About Us</a></li><li><a href="{p}gallery/">Gallery</a></li><li><a href="{p}reviews/">Reviews</a></li><li><a href="{p}contact-us/">Contact Us</a></li></ul></div>
 </div>
-<div class="base"><span>Copyright © <span data-cfg="year">2026</span> Kiely Roofing &amp; Construction. All Rights Reserved.</span>
+<div class="base"><span>Copyright © <span data-cfg="year">2026</span> Kiely Roofing &amp; Construction. All Rights Reserved. · <a href="https://almlabmarketing.com" target="_blank" rel="noopener">Website by AlmLab</a></span>
 <nav><a href="{p}privacy-policy/">Privacy Policy</a></nav></div>
 </div></footer>
 <div class="fab"><a class="wa" href="{WAURL}" data-href="whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp us">{WA}</a></div>
