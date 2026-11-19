@@ -358,9 +358,10 @@ def footer(p):
 <li>{I['clock']}<span>Mon–Sun: 7am–10pm</span></li></ul>
 <ul style="margin-top:18px"><li><a href="{p}roofers-dublin/">Roofers Dublin</a></li><li><a href="{p}about-us/">About Us</a></li><li><a href="{p}gallery/">Gallery</a></li><li><a href="{p}reviews/">Reviews</a></li><li><a href="{p}contact-us/">Contact Us</a></li></ul></div>
 </div>
-<div class="base"><span>Copyright © <span data-cfg="year">2026</span> Kiely Roofing &amp; Construction. All Rights Reserved. · <a href="https://almlabmarketing.com" target="_blank" rel="noopener">Website by AlmLab</a></span>
+<div class="base"><span>Copyright © <span data-cfg="year">2026</span> Kiely Roofing &amp; Construction. All Rights Reserved.</span>
 <nav><a href="{p}privacy-policy/">Privacy Policy</a></nav></div>
-</div></footer>
+</div><div class="almlab-credit-row" style="display:flex;justify-content:flex-end;padding:16px 24px 92px"><a class="almlab-credit" href="https://almlabmarketing.com" target="_blank" rel="noopener" style="color:#5dff7f;font-weight:600;font-size:13px;letter-spacing:.03em;text-decoration:none;white-space:nowrap;text-shadow:0 0 4px rgba(93,255,127,.95),0 0 10px rgba(57,255,106,.6),0 0 22px rgba(57,255,106,.35)">Website by AlmLab</a></div>
+</footer>
 <div class="fab"><a class="wa" href="{WAURL}" data-href="whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp us">{WA}</a></div>
 <div class="mbar"><a href="{TEL}">{I['phone']}<span>Call</span></a><a href="{WAURL}" target="_blank" rel="noopener">{WA_ICON}<span>WhatsApp</span></a><a href="#quote" data-qdrop class="q">{I['quote']}<span>Free quote</span></a></div>'''
 
